@@ -1,7 +1,10 @@
 import { useState } from "react";
 import "./styles/login.style.scss";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
-export const Form = () => {
+export const Form = ({ setIsLoggedIn }) => {
+  const navigate = useNavigate();
   const [login, setLogin] = useState({
     email: "",
     password: "",
@@ -15,8 +18,25 @@ export const Form = () => {
 
   const handleClick = (e) => {
     e.preventDefault();
-    // todo add an axios post method to the server and verify the user
-    console.log(login);
+    let config = {
+      method: "post",
+      url: "http://localhost:8080/user/login",
+      data: login,
+    };
+    axios(config)
+      .then(({ data }) => {
+        navigate("/home");
+        setIsLoggedIn(true);
+        tokenToLocalStorage(data[2]);
+      })
+      .catch((error) => {
+        console.log(error);
+        console.log("Error");
+      });
+  };
+
+  const tokenToLocalStorage = (token) => {
+    window.localStorage.setItem("token", token);
   };
 
   return (

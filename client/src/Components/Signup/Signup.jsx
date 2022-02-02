@@ -1,24 +1,41 @@
 import { useState } from "react";
 import "../Login/styles/login.style.scss";
 import { NavBar } from "../navBar/navBar";
-export const RegisterPage = () => {
-  const [login, setLogin] = useState({
-    uname: "",
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+export const RegisterPage = ({ setIsLoggedIn }) => {
+  const navigate = useNavigate();
+  const [register, setRegister] = useState({
+    name: "",
     email: "",
     password: "",
   });
 
   const handleChange = ({ target }) => {
     const { name, value } = target;
-    name === "email" && setLogin({ ...login, email: value });
-    name === "psw" && setLogin({ ...login, password: value });
-    name === "uname" && setLogin({ ...login, uname: value });
+    name === "email" && setRegister({ ...register, email: value });
+    name === "psw" && setRegister({ ...register, password: value });
+    name === "uname" && setRegister({ ...register, name: value });
   };
 
   const handleClick = (e) => {
     e.preventDefault();
-    // todo add an axios post method to the server and verify the user
-    console.log(login);
+    let config = {
+      method: "post",
+      url: "http://localhost:8080/user/add",
+      data: register,
+    };
+    axios(config)
+      .then(({ data }) => {
+        setIsLoggedIn(true);
+        navigate("/home");
+        console.log("registerd");
+        window.localStorage.setItem("token", data.token);
+      })
+      .catch((error) => {
+        console.log(error.response.data);
+        console.log("Error");
+      });
   };
 
   return (
