@@ -1,0 +1,42 @@
+$black_color: #2a2a2a;
+$yellow_color: #faec00;
+$white_color: #eeeeee;
+$red_color: #ea4f4c;
+.navBar {
+  box-shadow: 0 5px 15px 0 rgba(0, 0, 0, 0.25);
+  background: $black_color;
+  text-decoration: none;
+  color: white;
+  text-transform: uppercase;
+  overflow: hidden;
+  height: 50px;
+  position: sticky;
+  top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #222831;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  .item {
+    cursor: pointer;
+    text-decoration: none;
+    margin: 0 20px;
+    color: $white_color;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.3s ease-in-out;
+  }
+  .item:hover {
+    color: $red_color;
+  }
+  .right {
+    margin-right: 10px;
+    display: flex;
+  }
+  .left {
+    margin-left: 10px;
+  }
+}

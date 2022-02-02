@@ -1,0 +1,18 @@
+.link {
+  text-decoration: none;
+  color: black;
+
+  .post-card {
+    text-align: center;
+    height: 10rem;
+    min-height: 10rem;
+    width: 10rem;
+    border: 1px solid red;
+    cursor: pointer;
+
+    .header {
+      font-size: 1.3rem;
+      font-weight: bold;
+    }
+  }
+}
