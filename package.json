@@ -1,10 +1,14 @@
 {
   "name": "blog-post-site",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node server/app.js",
+    "server": "nodemon server/app.js",
+    "client": "npm run start --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "copy": "cp -r client/build server/",
+    "heroku-postbuild": "npm install --prefix client && npm run build --prefix client"
   },
   "repository": {
     "type": "git",
@@ -16,5 +20,19 @@
   "bugs": {
     "url": "https://github.com/Ernestobolkin/Blog-Post-Site/issues"
   },
-  "homepage": "https://github.com/Ernestobolkin/Blog-Post-Site#readme"
+  "homepage": "https://github.com/Ernestobolkin/Blog-Post-Site#readme",
+  "description": "",
+  "dependencies": {
+    "axios": "^0.25.0",
+    "bcryptjs": "^2.4.3",
+    "concurrently": "^7.0.0",
+    "cors": "^2.8.5",
+    "dotenv": "^15.0.0",
+    "express": "^4.17.2",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^6.1.10",
+    "nodemon": "^2.0.15",
+    "path": "^0.12.7",
+    "validator": "^13.7.0"
+  }
 }
