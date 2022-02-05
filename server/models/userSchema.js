@@ -2,6 +2,7 @@ const { Schema, model } = require("mongoose");
 const validator = require("validator");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const Posts = require("./postSchema");
 
 const UserSchema = new Schema({
   name: {
@@ -32,6 +33,12 @@ const UserSchema = new Schema({
       },
     },
   ],
+});
+
+UserSchema.virtual("posts", {
+  ref: "posts",
+  localField: "_id",
+  foreignField: "owner",
 });
 
 UserSchema.methods.toJSON = function () {
@@ -81,6 +88,6 @@ UserSchema.pre("save", async function (next) {
   next();
 });
 
-const User = model("User", UserSchema);
+const User = model("users", UserSchema);
 
 module.exports = User;

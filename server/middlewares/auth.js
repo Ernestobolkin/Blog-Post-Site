@@ -14,6 +14,9 @@ const auth = async (req, res, next) => {
     } else {
       req.token = token;
       req.user = user;
+      req.email = decoded.email;
+      req.useId = user._id.toString();
+      req.owner = user._id.toString();
       next();
     }
   } catch (e) {
