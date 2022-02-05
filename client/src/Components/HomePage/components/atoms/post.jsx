@@ -11,17 +11,15 @@ const classes = {
   link: "link",
 };
 
-export const Post = ({ post: { title, content, userId } }) => {
+export const Post = ({ post: { title, content, userName } }) => {
   const renderPostCard = () => {
     let copyContent = content;
-    let shortedContent =
-      copyContent.split(" ").slice(0, 15).join().replace(/,/g, " ") + "...";
+    let shortedContent = copyContent.split(" ").slice(0, 15).join().replace(/,/g, " ") + "...";
     return (
-      <Link className={classes.link} to={`/post/${userId}`}>
+      <Link className={classes.link} to={`/post/${userName}`}>
         <div className={classes.container}>
           <header className={classes.header}>
             {title}
-            {/* <div className={classes.headerMainContent}></div> */}
           </header>
           <article className={classes.article}>
             <p className={classes.articleContent}>

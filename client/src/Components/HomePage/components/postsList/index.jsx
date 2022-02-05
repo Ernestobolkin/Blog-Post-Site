@@ -1,15 +1,13 @@
-import React, { useState } from "react";
-import { TEMP_POSTS } from "../../../../constants/posts";
+import React, { useContext } from "react";
 import { Post } from "../atoms/post";
-
+import { PostsContext } from "../../../../App/context/context";
 
 export const PostsList = () => {
-  const [posts, setPosts] = useState(TEMP_POSTS)
-
+  const { postsData } = useContext(PostsContext);
   return (
     <>
-    {posts.map(post => <Post key={post._id} post={post}/>)}
+      {postsData !== null &&
+        postsData.map((post) => <Post key={post._id} post={post} />)}
     </>
-  )
-}
-
+  );
+};
