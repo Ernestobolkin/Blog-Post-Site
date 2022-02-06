@@ -3,6 +3,8 @@ import "../Login/styles/login.style.scss";
 import { NavBar } from "../navBar/navBar";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { TextField } from "@mui/material";
+import Button from "@mui/material/Button";
 export const RegisterPage = ({ setIsLoggedIn }) => {
   const navigate = useNavigate();
   const [register, setRegister] = useState({
@@ -44,43 +46,63 @@ export const RegisterPage = ({ setIsLoggedIn }) => {
       <div className="register-page">
         <div className="register-container">
           <form className="form-container">
-            <label className="label" htmlFor="uname">
-              <b>Username</b>
-            </label>
-            <input
-              className="input"
+            <br />
+            <TextField
+              style={{
+                width: "225px",
+                backgroundColor: "white",
+                borderRadius: "5px",
+              }}
+              id="outlined-required"
+              label="Username"
+              size="small"
               onChange={handleChange}
+              value={register.name}
               type="text"
               placeholder="Enter Username"
               name="uname"
               required
             />
-            <label className="label" htmlFor="email">
-              <b>Email</b>
-            </label>
-            <input
-              className="input"
+            <br />
+            <TextField
+              style={{
+                width: "225px",
+                backgroundColor: "white",
+                borderRadius: "5px",
+              }}
+              id="outlined-required"
+              label="Email"
+              size="small"
               onChange={handleChange}
-              type="text"
-              placeholder="Enter Username"
+              value={register.email}
+              type="email"
+              placeholder="Enter Email"
               name="email"
               required
             />
-            <label className="label" htmlFor="psw">
-              <b>Password</b>
-            </label>
-            <input
-              className="input"
+            <br />
+            <TextField
+              style={{
+                width: "225px",
+                backgroundColor: "white",
+                borderRadius: "5px",
+              }}
+              id="outlined-adornment-password-required"
+              label="Password"
+              size="small"
               onChange={handleChange}
               type="password"
+              value={register.password}
               placeholder="Enter Password"
               name="psw"
               minLength="8"
               required
             />
-            <button className="btn" onClick={handleClick} type="submit">
-              Sign up
-            </button>
+            <br />
+            <br />
+            <Button onClick={handleClick} variant="contained">
+              Register
+            </Button>
           </form>
         </div>
       </div>

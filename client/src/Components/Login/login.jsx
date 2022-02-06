@@ -3,7 +3,9 @@ import { Link } from "react-router-dom";
 import ROUTES from "../../constants/routes";
 import { NavBar } from "../navBar/navBar";
 import "./styles/login.style.scss";
+
 export const LoginPage = ({ setIsLoggedIn }) => {
+  
   return (
     <>
       <NavBar />

@@ -7,7 +7,7 @@ export const PostsList = () => {
   return (
     <>
       {postsData !== null &&
-        postsData.map((post) => <Post key={post._id} post={post} />)}
+        postsData.map((post) => <Post key={post._id} post={post} />).reverse()}
     </>
   );
 };

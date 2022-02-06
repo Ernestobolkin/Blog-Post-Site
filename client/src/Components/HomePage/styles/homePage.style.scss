@@ -1,16 +1,23 @@
 .home-page-container {
   display: flex;
-  width: 100%;
+  width: 100vw;
   height: 100vh;
+  flex-direction: column;
+  align-items: center;
   .posts-container {
-    border: 1px solid red;
     display: flex;
     gap: 15px;
-    align-content: flex-start;
-    flex-wrap: wrap;
+    flex-direction: column;
     width: 80%;
-    height: 80%;
-    margin: 20px auto;
+    align-items: center;
+  }
+
+  .uploadPostContainer{
+    border: 1px solid green;
+    width: 500px;
+    height: 500px;
+    margin-top: 20px;
+    display: flex;
     justify-content: center;
   }
 }

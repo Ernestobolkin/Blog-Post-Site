@@ -4,6 +4,7 @@ import ROUTES from "../../constants/routes";
 import { useEffect, useContext, useState } from "react";
 import { LogOutContext } from "../../App/context/context";
 import axios from "axios";
+import BackgroundLetterAvatars from "./avatar";
 
 const classes = {
   container: "navBar",
@@ -11,7 +12,7 @@ const classes = {
   flout: { right: "right", left: "left" },
 };
 
-export const NavBar = () => {
+export const NavBar = ({ userName }) => {
   const [token, setToken] = useState("");
   const { logOut, isLoggedIn } = useContext(LogOutContext);
   useEffect(() => {
@@ -20,14 +21,13 @@ export const NavBar = () => {
   }, []);
 
   const onClickLogout = () => {
-    let data = "";
     let config = {
       method: "post",
       url: "http://localhost:8080/user/logout",
       headers: {
         Authorization: `Barear ${token}`,
       },
-      data: data,
+      data: "",
     };
     axios(config)
       .then(({ data }) => {
@@ -49,7 +49,7 @@ export const NavBar = () => {
         </Link>
       </div>
       <div className={classes.flout.right}>
-        <div className={classes.item}>UserPhoto</div>
+        {isLoggedIn && <BackgroundLetterAvatars userName={userName} />}
         {!isLoggedIn && (
           <Link className={classes.item} to={`${ROUTES.LOGIN}`}>
             login
