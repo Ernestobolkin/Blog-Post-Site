@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 import axios from "axios";
+import Box from "@mui/material/Box";
+import TextField from "@mui/material/TextField";
+import "./style/post.style.scss"
 
 export const UploadPost = ({ getData }) => {
   let token = localStorage.getItem("token");
@@ -15,8 +18,8 @@ export const UploadPost = ({ getData }) => {
   const handleClick = (e) => {
     e.preventDefault();
     let config = {
-      method: 'post',
-      url: 'http://localhost:8080/user/post',
+      method: "post",
+      url: "http://localhost:8080/user/post",
       data: postValues,
       headers: {
         Authorization: `bearer ${token}`,
@@ -35,23 +38,34 @@ export const UploadPost = ({ getData }) => {
 
   return (
     <>
-      <div className="uploadPostFrom">
-        <input
-          name="title"
-          onChange={handleChange}
-          type="text"
-          placeholder="Enter Title"
-        />
-        <textarea
-          onChange={handleChange}
-          name="content"
-          id=""
-          cols="30"
-          rows="10"
-          placeholder="What Would You Like To Share"
-        ></textarea>
-        <button onClick={handleClick}>Post</button>
-      </div>
+      <Box
+        component="form"
+        sx={{
+          "& .MuiTextField-root": { m: 1, width: "25ch" },
+        }}
+        noValidate
+        autoComplete="on"
+      >
+        <div className="uploadPostFrom">
+          <input
+            name="title"
+            onChange={handleChange}
+            type="text"
+            value={postValues.title}
+            placeholder="Enter Title"
+          />
+          <TextField
+            className="outlined-multiline-static"
+            multiline
+            rows={4}
+            name="content"
+            onChange={handleChange}
+            value={postValues.content}
+          />
+
+          <button onClick={handleClick}>Post</button>
+        </div>
+      </Box>
     </>
   );
 };

@@ -3,6 +3,7 @@ $yellow_color: #faec00;
 $white_color: #eeeeee;
 $red_color: #ea4f4c;
 .navBar {
+  z-index: 1000;
   box-shadow: 0 5px 15px 0 rgba(0, 0, 0, 0.25);
   background: $black_color;
   text-decoration: none;

@@ -2,7 +2,7 @@ import * as React from "react";
 import Avatar from "@mui/material/Avatar";
 import Stack from "@mui/material/Stack";
 import { LogOutContext } from "../../App/context/context";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 
 function stringToColor(string) {
   let hash = 0;
@@ -34,9 +34,13 @@ function stringAvatar(name) {
 }
 
 export default function BackgroundLetterAvatars() {
-  const { userName } = useContext(LogOutContext);
+  const [userName, setUserName] = React.useState();
   const { isLoggedIn } = useContext(LogOutContext);
-  console.log(userName);
+
+  useEffect(() => {
+    setUserName(localStorage.getItem("userName"));
+  }, [isLoggedIn]);
+
   return (
     <Stack direction="row" spacing={2}>
       {isLoggedIn && <Avatar {...stringAvatar(userName || "Guest")} />}

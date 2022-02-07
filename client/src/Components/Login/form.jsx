@@ -1,4 +1,4 @@
-import { useState,useContext } from "react";
+import { useContext, useState } from "react";
 // import "./styles/login.style.scss";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -6,10 +6,9 @@ import { TextField } from "@mui/material";
 import Button from "@mui/material/Button";
 import { LogOutContext } from "../../App/context/context";
 
-
 export const Form = ({ setIsLoggedIn }) => {
-  const { setUserName } = useContext(LogOutContext);
   const navigate = useNavigate();
+  const { userName } = useContext(LogOutContext);
   const [login, setLogin] = useState({
     email: "",
     password: "",
@@ -30,20 +29,15 @@ export const Form = ({ setIsLoggedIn }) => {
     };
     axios(config)
       .then(({ data }) => {
-        console.log(data[1].name);
-        setUserName(data[1].name);
         navigate("/home");
         setIsLoggedIn(true);
-        tokenToLocalStorage(data[2]);
+        window.localStorage.setItem("token", data[2]);
+        window.localStorage.setItem("userName", data[1].name);
       })
       .catch((error) => {
         console.log(error);
         console.log("Error");
       });
-  };
-
-  const tokenToLocalStorage = (token) => {
-    window.localStorage.setItem("token", token);
   };
 
   return (

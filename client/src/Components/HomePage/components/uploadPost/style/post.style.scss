@@ -1,0 +1,9 @@
+.uploadPostFrom {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  .outlined-multiline-static {
+    min-width: 450px;
+  }
+}

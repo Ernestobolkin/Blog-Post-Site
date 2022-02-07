@@ -30,12 +30,14 @@ export const RegisterPage = ({ setIsLoggedIn }) => {
     axios(config)
       .then(({ data }) => {
         setIsLoggedIn(true);
+        console.log(data);
+        window.localStorage.setItem("userName", data.user.name);
         navigate("/home");
         console.log("registerd");
         window.localStorage.setItem("token", data.token);
       })
       .catch((error) => {
-        console.log(error.response.data);
+        console.log(error);
         console.log("Error");
       });
   };
@@ -53,7 +55,7 @@ export const RegisterPage = ({ setIsLoggedIn }) => {
                 backgroundColor: "white",
                 borderRadius: "5px",
               }}
-              id="outlined-required"
+              className="outlined-required"
               label="Username"
               size="small"
               onChange={handleChange}
@@ -70,7 +72,7 @@ export const RegisterPage = ({ setIsLoggedIn }) => {
                 backgroundColor: "white",
                 borderRadius: "5px",
               }}
-              id="outlined-required"
+              className="outlined-required"
               label="Email"
               size="small"
               onChange={handleChange}
@@ -87,7 +89,7 @@ export const RegisterPage = ({ setIsLoggedIn }) => {
                 backgroundColor: "white",
                 borderRadius: "5px",
               }}
-              id="outlined-adornment-password-required"
+              className="outlined-adornment-password-required"
               label="Password"
               size="small"
               onChange={handleChange}

@@ -62,7 +62,8 @@ export const UserProfile = ({ postsData, getData }) => {
 
   useEffect(() => {
     postsData && filterData();
-  }, [postsData]);
+
+  }, [postsData]); // eslint-disable-line
 
   return (
     <>

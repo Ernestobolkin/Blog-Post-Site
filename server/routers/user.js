@@ -5,6 +5,7 @@ const mongoose = require("mongoose");
 const addUser = async (req, res) => {
   try {
     const { name, email, password } = req.body;
+    console.log(name, email, password);
     const data = {
       name,
       email,

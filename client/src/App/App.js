@@ -6,14 +6,13 @@ import { RegisterPage } from "../Components/Signup/Signup";
 import { UserProfile } from "../Components/HomePage/components/userPage/userPage";
 import { useEffect, useState } from "react";
 import { useUserAuth } from "./useInit/init";
-import { LogOutContext, PostsContext, UserData } from "./context/context";
+import { LogOutContext, PostsContext, UserDataContext } from "./context/context";
 import axios from "axios";
 import "./style/app.style.scss";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [postsData, setPostsData] = useState(null);
-  const [userName, setUserName] = useState("");
   const loggedIn = useUserAuth();
 
   const getData = () => {
@@ -37,15 +36,15 @@ function App() {
     if (loggedIn) {
       setIsLoggedIn(true);
     }
-  }, [loggedIn]);
+  }, [loggedIn]); // eslint-disable-line
 
   const logOut = () => setIsLoggedIn(false);
 
   return (
     <>
       <LogOutContext.Provider value={{ logOut, isLoggedIn }}>
-        <PostsContext.Provider value={{ postsData, setPostsData }}>
-          <UserData.Provider value={{ userName, setUserName }}>
+        <PostsContext.Provider value={{ postsData }}>
+          <UserDataContext.Provider value={{ postsData }}>
             <Routes>
               <Route
                 path="/post/*"
@@ -66,7 +65,7 @@ function App() {
                 element={<HomePage getData={getData} />}
               />
             </Routes>
-          </UserData.Provider>
+          </UserDataContext.Provider>
         </PostsContext.Provider>
       </LogOutContext.Provider>
     </>

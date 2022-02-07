@@ -12,7 +12,7 @@ const classes = {
   flout: { right: "right", left: "left" },
 };
 
-export const NavBar = ({ userName }) => {
+export const NavBar = () => {
   const [token, setToken] = useState("");
   const { logOut, isLoggedIn } = useContext(LogOutContext);
   useEffect(() => {
@@ -33,9 +33,11 @@ export const NavBar = ({ userName }) => {
       .then(({ data }) => {
         logOut(true);
         localStorage.removeItem("token");
+        localStorage.removeItem("userName");
       })
       .catch((error) => {
         localStorage.removeItem("token");
+        localStorage.removeItem("userName");
         logOut(true);
         console.log(error.response.data);
       });
@@ -49,7 +51,7 @@ export const NavBar = ({ userName }) => {
         </Link>
       </div>
       <div className={classes.flout.right}>
-        {isLoggedIn && <BackgroundLetterAvatars userName={userName} />}
+        {isLoggedIn && <BackgroundLetterAvatars />}
         {!isLoggedIn && (
           <Link className={classes.item} to={`${ROUTES.LOGIN}`}>
             login

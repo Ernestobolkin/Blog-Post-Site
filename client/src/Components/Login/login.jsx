@@ -4,14 +4,13 @@ import ROUTES from "../../constants/routes";
 import { NavBar } from "../navBar/navBar";
 import "./styles/login.style.scss";
 
-export const LoginPage = ({ setIsLoggedIn }) => {
-  
+export const LoginPage = ({ setIsLoggedIn, setUserName }) => {
   return (
     <>
       <NavBar />
       <div className="login-page">
         <div className="login-container">
-          <Form setIsLoggedIn={setIsLoggedIn} />
+          <Form setIsLoggedIn={setIsLoggedIn} setUserName={setUserName} />
           <p>Don't have an account? </p>
           <Link className="link" to={ROUTES.REGISTER}>
             Sign Up
