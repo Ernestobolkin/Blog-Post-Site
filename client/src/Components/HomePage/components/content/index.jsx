@@ -1,9 +1,9 @@
 import { Routes, Route } from "react-router";
 import { PostsList } from "../postsList";
-export const Content = () => {
+export const Content = ({ getData }) => {
   return (
     <Routes>
-      <Route path="/home" element={<PostsList />} />
+      <Route path="/*" element={<PostsList getData={getData} />} />
     </Routes>
   );
 };

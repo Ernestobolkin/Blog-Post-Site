@@ -28,8 +28,9 @@ export const Form = ({ setIsLoggedIn }) => {
     axios(config)
       .then(({ data }) => {
         navigate("/home");
+        let name = data[1].name.charAt(0).toUpperCase() + data[1].name.slice(1);
         window.localStorage.setItem("token", data[2]);
-        window.localStorage.setItem("userName", data[1].name);
+        window.localStorage.setItem("userName", name);
         setIsLoggedIn(true);
       })
       .catch((error) => {

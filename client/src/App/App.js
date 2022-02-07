@@ -61,7 +61,7 @@ function App() {
                 element={<RegisterPage setIsLoggedIn={setIsLoggedIn} />}
               />
               <Route
-                path={ROUTES.TRAILING_PATH}
+                path={"/*"}
                 element={<HomePage getData={getData} />}
               />
             </Routes>

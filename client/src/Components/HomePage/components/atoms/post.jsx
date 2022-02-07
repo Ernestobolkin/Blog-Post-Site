@@ -6,9 +6,37 @@ import CardHeader from "@mui/material/CardHeader";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import "./style/post.style.scss";
+import axios from "axios";
 
-export const Post = ({ post: { title, content, userName, date } }) => {
+export const Post = ({getData, post: { _id, title, content, userName, date } }) => {
+  const userLogged = window.localStorage.getItem("userName");
+  const token = window.localStorage.getItem("token");
   let name = userName.charAt(0).toUpperCase() + userName.slice(1);
+  const deletePost = () => {
+    let config = {
+      method: "delete",
+      url: `http://localhost:8080/user/post/${_id}`,
+      headers: {
+        Authorization: `Barear ${token}`,
+      },
+    };
+    axios(config)
+      .then(({ data }) => {
+        getData()
+        // getData={getData}
+      })
+      .catch((error) => {
+        console.log(error);
+        console.log("Error");
+      });
+  };
+
+  const handleClick = ({ target }) => {
+    const { id } = target;
+    id === "delete-icon" && deletePost();
+    // edit-icon
+  };
+
   const renderPostCard = () => {
     return (
       <Card
@@ -20,10 +48,22 @@ export const Post = ({ post: { title, content, userName, date } }) => {
           maxWidth: "60%",
         }}
       >
-        <div className="crud-post-options">
-          <i id="delete-icon" className="fas fa-trash"></i>
-          <i id="edit-icon" className="fas fa-pencil-alt"></i>
-        </div>
+        {userLogged === name && (
+          <div className="crud-post-options">
+            <i
+              name="delete"
+              onClick={handleClick}
+              id="delete-icon"
+              className="fas fa-trash"
+            />
+            <i
+              name="edit"
+              onClick={handleClick}
+              id="edit-icon"
+              className="fas fa-pencil-alt"
+            />
+          </div>
+        )}
         <CardHeader
           title={
             <Link className="user-link" to={`/post/${userName}`}>

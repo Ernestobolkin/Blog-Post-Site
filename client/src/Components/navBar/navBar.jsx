@@ -15,10 +15,11 @@ const classes = {
 export const NavBar = () => {
   const [token, setToken] = useState("");
   const { logOut, isLoggedIn } = useContext(LogOutContext);
+
   useEffect(() => {
     let localToken = localStorage.getItem("token");
     setToken(localToken);
-  }, []);
+  }, [token]);
 
   const onClickLogout = () => {
     let config = {
