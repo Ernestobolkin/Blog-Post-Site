@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import axios from "axios";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
-import "./style/post.style.scss"
+import "./style/post.style.scss";
+import Button from "@mui/material/Button";
 
 export const UploadPost = ({ getData }) => {
   let token = localStorage.getItem("token");
@@ -47,23 +48,36 @@ export const UploadPost = ({ getData }) => {
         autoComplete="on"
       >
         <div className="uploadPostFrom">
-          <input
+          <TextField
+            size="small"
+            value={postValues.title}
+            type="text"
             name="title"
             onChange={handleChange}
-            type="text"
-            value={postValues.title}
-            placeholder="Enter Title"
-          />
-          <TextField
-            className="outlined-multiline-static"
-            multiline
-            rows={4}
-            name="content"
-            onChange={handleChange}
-            value={postValues.content}
+            label="Enter Title"
+            id="standard-basic"
+            variant="standard"
           />
 
-          <button onClick={handleClick}>Post</button>
+          <div className="text-area-N-btn">
+            <TextField
+              className="outlined-multiline-static"
+              multiline
+              rows={4}
+              placeholder="What would you like to share?"
+              name="content"
+              onChange={handleChange}
+              value={postValues.content}
+            />
+            <Button
+              size="small"
+              className="btn"
+              variant="contained"
+              onClick={handleClick}
+            >
+              Post
+            </Button>
+          </div>
         </div>
       </Box>
     </>

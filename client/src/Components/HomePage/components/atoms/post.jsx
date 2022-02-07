@@ -28,13 +28,22 @@ export const Post = ({ post: { title, content, userName, date } }) => {
           <i id="edit-icon" className="fas fa-pencil-alt"></i>
         </div>
         <CardHeader
-          title={<Link to={`/post/${userName}`}>{userName}</Link>}
+          title={
+            <Link
+              className="user-link"
+              to={`/post/${userName}`}
+            >
+              {userName}
+            </Link>
+          }
           subheader={date}
         />
 
         <CardContent>
+          <Typography variant="h6" component="h6">
+            <b>{title}</b>
+          </Typography>
           <Typography variant="body2" color="text.secondary">
-            <h3>{title}</h3>
             {content}
           </Typography>
         </CardContent>

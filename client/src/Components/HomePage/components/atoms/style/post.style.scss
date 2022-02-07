@@ -1,5 +1,16 @@
 .card {
   position: relative;
+
+  .user-link {
+    text-decoration: none;
+    color: black;
+  }
+  
+  .user-link:hover {
+    color: #00adb5;
+    text-decoration: underline;
+  }
+
   .crud-post-options {
     position: absolute;
     top: 20px;
@@ -13,7 +24,7 @@
       margin-right: 10px;
       color: rgba(255, 49, 49, 0.822);
     }
-    #edit-icon{
+    #edit-icon {
       color: rgba(0, 0, 0, 0.822);
     }
     #delete-icon:hover {

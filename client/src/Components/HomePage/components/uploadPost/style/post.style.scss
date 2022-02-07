@@ -3,7 +3,22 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
+  input{
+    background-color: transparent;
+  }
+
+  .text-area-N-btn{
+    display: flex;
+  
+    .btn{
+      width: 1rem;
+      height: min-content;
+      margin: auto 0 ;
+    }
+  }
+
   .outlined-multiline-static {
-    min-width: 450px;
+    min-width: 100%;
   }
 }
