@@ -4,7 +4,6 @@ import { PostsContext } from "../../../../App/context/context";
 
 export const PostsList = () => {
   const { postsData } = useContext(PostsContext);
-  console.log(postsData);
   return (
     <>
       {postsData !== null &&

@@ -29,12 +29,11 @@ export const RegisterPage = ({ setIsLoggedIn }) => {
     };
     axios(config)
       .then(({ data }) => {
-        setIsLoggedIn(true);
-        console.log(data);
+        window.localStorage.setItem("token", data.token);
         window.localStorage.setItem("userName", data.user.name);
         navigate("/home");
         console.log("registerd");
-        window.localStorage.setItem("token", data.token);
+        setIsLoggedIn(true);
       })
       .catch((error) => {
         console.log(error);

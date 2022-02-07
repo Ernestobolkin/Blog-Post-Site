@@ -30,9 +30,9 @@ export const Form = ({ setIsLoggedIn }) => {
     axios(config)
       .then(({ data }) => {
         navigate("/home");
-        setIsLoggedIn(true);
         window.localStorage.setItem("token", data[2]);
         window.localStorage.setItem("userName", data[1].name);
+        setIsLoggedIn(true);
       })
       .catch((error) => {
         console.log(error);

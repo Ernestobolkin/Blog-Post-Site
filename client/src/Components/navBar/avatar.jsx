@@ -34,11 +34,13 @@ function stringAvatar(name) {
 }
 
 export default function BackgroundLetterAvatars() {
-  const [userName, setUserName] = React.useState();
+  const [userName, setUserName] = React.useState("");
   const { isLoggedIn } = useContext(LogOutContext);
+
 
   useEffect(() => {
     setUserName(localStorage.getItem("userName"));
+
   }, [isLoggedIn]);
 
   return (

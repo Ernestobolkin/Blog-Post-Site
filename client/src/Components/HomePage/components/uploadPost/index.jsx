@@ -29,7 +29,7 @@ export const UploadPost = ({ getData }) => {
     axios(config)
       .then(({ data }) => {
         getData();
-        console.log(data);
+        setPostValues({ title: "", content: "" });
       })
       .catch((error) => {
         console.log(error);
