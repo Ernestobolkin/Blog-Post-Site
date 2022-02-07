@@ -1,11 +1,11 @@
 import { NavBar } from "../../../navBar/navBar";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
-import RecipeReviewCard from "./userPageTest";
+import RecipeReviewCard from "./card";
+import "./style/userPage.style.scss";
 
 export const UserProfile = ({ postsData, getData }) => {
   const [isData, serIsData] = useState(false);
-  const [isComment, setIsComment] = useState(false);
   const [filteredData, setFilteredData] = useState();
   const userNameParam = Object.values(useParams()).toString();
 
@@ -13,9 +13,11 @@ export const UserProfile = ({ postsData, getData }) => {
     const { _id, date, userName, content } = comment;
     return (
       <div id={_id} key={_id} className="comment-container">
-        <p>{date}</p>
         <h3>{userName}</h3>
+        <p className="date">{date}</p>
+        <br />
         <p>{content}</p>
+        <br />
         <hr />
       </div>
     );
@@ -35,25 +37,9 @@ export const UserProfile = ({ postsData, getData }) => {
         >
           {post?.comments?.map(renderComments)}
         </RecipeReviewCard>
-        // <div key={post._id} id={post._id}>
-        //   <h1>{userNameParam}</h1>
-        //   <h3>{post.title}</h3>
-        //   <p>{post.date}</p>
-        //   <p>{post.content}</p>
-        //   <hr />
-        //   <div className="comments">{isData && renderComments(i)}</div>
-        //   {!isComment && (
-        //     <button onClick={() => setIsComment(true)}>
-        //       Leave A Comment
-        //     </button>
-        //   )}
-        //   {isComment && (
-            // <AddComment id={filteredData[i]._id} getData={getData} />
-        //   )}
-        // </div>
       );
     });
-    
+
   const filterData = () => {
     const userData = postsData
       .filter((post) => post.userName === userNameParam)
@@ -69,7 +55,10 @@ export const UserProfile = ({ postsData, getData }) => {
   return (
     <>
       <NavBar />
-      {isData && renderPost()}
+      <div className="user-posts-container">
+        <h2 className="userName">{userNameParam}</h2>
+        {isData && renderPost()}
+      </div>
     </>
   );
 };

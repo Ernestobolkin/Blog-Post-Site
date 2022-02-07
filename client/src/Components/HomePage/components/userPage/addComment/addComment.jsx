@@ -1,8 +1,11 @@
 import axios from "axios";
 import { useState } from "react";
+import TextField from "@mui/material/TextField";
+import Button from "@mui/material/Button";
+import SendIcon from '@mui/icons-material/Send';
 
 export const AddComment = ({ getData, id }) => {
-  const [commentValue, setCommentValue] = useState();
+  const [commentValue, setCommentValue] = useState("");
 
   const handleChange = ({ target }) => {
     const { value } = target;
@@ -25,6 +28,7 @@ export const AddComment = ({ getData, id }) => {
     axios(config)
       .then(({ data }) => {
         getData();
+        setCommentValue("")
       })
       .catch((error) => {
         console.log(error);
@@ -34,15 +38,20 @@ export const AddComment = ({ getData, id }) => {
 
   return (
     <>
-      <textarea
-        onChange={handleChange}
-        name="comment"
-        placeholder="Write a comment"
-        id=""
-        cols="30"
-        rows="10"
-      ></textarea>
-      <button onClick={handleClick}>Send</button>
+
+      <div className="comment-section">
+        <TextField
+          id="outlined-size-small"
+          onChange={handleChange}
+          value={commentValue}
+          className="textarea"
+          size="small"
+        />
+         <Button onClick={handleClick} className="btn" variant="outlined" endIcon={<SendIcon />}>
+        Send
+      </Button>
+
+      </div>
     </>
   );
 };

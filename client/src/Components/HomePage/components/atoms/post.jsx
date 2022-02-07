@@ -8,10 +8,7 @@ import Typography from "@mui/material/Typography";
 import "./style/post.style.scss";
 
 export const Post = ({ post: { title, content, userName, date } }) => {
-  const handleClick = ({ target }) => {
-    console.dir(target);
-  };
-
+  let name = userName.charAt(0).toUpperCase() + userName.slice(1);
   const renderPostCard = () => {
     return (
       <Card
@@ -29,11 +26,8 @@ export const Post = ({ post: { title, content, userName, date } }) => {
         </div>
         <CardHeader
           title={
-            <Link
-              className="user-link"
-              to={`/post/${userName}`}
-            >
-              {userName}
+            <Link className="user-link" to={`/post/${userName}`}>
+              {name}
             </Link>
           }
           subheader={date}

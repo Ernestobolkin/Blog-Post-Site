@@ -1,14 +1,12 @@
-import { useContext, useState } from "react";
+import { useState } from "react";
 // import "./styles/login.style.scss";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { TextField } from "@mui/material";
 import Button from "@mui/material/Button";
-import { LogOutContext } from "../../App/context/context";
 
 export const Form = ({ setIsLoggedIn }) => {
   const navigate = useNavigate();
-  const { userName } = useContext(LogOutContext);
   const [login, setLogin] = useState({
     email: "",
     password: "",
