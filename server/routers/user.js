@@ -151,17 +151,23 @@ const deletePost = async (req, res) => {
 
 const deleteComment = async (req, res) => {
   try {
-    const { commentId, commentUserId } = req.body;
+    const { commentId } = req.body;
     const { postId } = req.params;
-    const remover = req.useId;
 
-    if (commentUserId !== remover) throw new Error("NOT VALID");
-    const newCommnets = await Posts.findByIdAndUpdate(
-      { _id: postId },
-      { $pull: { comments: { _id: commentId } } },
-      { new: true }
-    );
-    res.send(newCommnets);
+    const remover = req.useId;
+    const post = await Posts.findById({ _id: postId });
+    const owner = post.owner.toString()
+
+    if (owner === remover) {
+      await Posts.findByIdAndUpdate(
+        { _id: postId },
+        { $pull: { comments: { _id: commentId } } },
+        { new: true }
+      );
+      res.status(200).send("comment has been removed")
+    }else{
+      throw new Error("something went wrong");
+    }
   } catch (e) {
     res.status(500).send(e.message);
   }
