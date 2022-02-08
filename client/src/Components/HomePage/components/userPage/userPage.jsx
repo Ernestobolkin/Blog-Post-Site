@@ -41,7 +41,6 @@ export const UserProfile = ({ postsData, getData }) => {
   const renderComments = (comment, postId, postOwner) => {
     const { _id, date, userName, content } = comment;
     let name = userName.charAt(0).toUpperCase() + userName.slice(1);
-
     return (
       <div id={_id} key={_id} className="comment-container">
         <div className="crud-comment-options">
@@ -105,7 +104,10 @@ export const UserProfile = ({ postsData, getData }) => {
     <>
       <NavBar />
       <div className="user-posts-container">
-        <h2 className="userName">{userNameParam}</h2>
+        <h2 className="userName">
+          {userNameParam.charAt(0).toUpperCase() + userNameParam.slice(1)}
+        </h2>
+
         {isData && renderPost()}
       </div>
     </>
