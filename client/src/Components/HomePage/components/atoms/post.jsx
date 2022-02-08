@@ -23,7 +23,6 @@ export const Post = ({getData, post: { _id, title, content, userName, date } }) 
     axios(config)
       .then(({ data }) => {
         getData()
-        // getData={getData}
       })
       .catch((error) => {
         console.log(error);

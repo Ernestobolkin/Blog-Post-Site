@@ -15,12 +15,34 @@
     height: fit-content;
     width: 48%;
 
-    .comment-container{
-      // border: 1px solid red;
-      margin: 5px 0 ;
+    .comment-container {
+      margin: 5px 0;
+      position: relative;
 
-      .date{
-        font-size: .7rem;
+      .crud-comment-options {
+        position: absolute;
+        top: 0;
+        right: 0;
+        i {
+          cursor: pointer;
+        }
+        #delete-icon {
+          margin-right: 10px;
+          color: rgba(255, 49, 49, 0.822);
+        }
+        #edit-icon {
+          color: rgba(0, 0, 0, 0.822);
+        }
+        #delete-icon:hover {
+          color: rgb(255, 0, 0);
+        }
+        #edit-icon:hover {
+          color: rgb(0, 0, 0);
+        }
+      }
+
+      .date {
+        font-size: 0.7rem;
       }
     }
     .comment-section {
