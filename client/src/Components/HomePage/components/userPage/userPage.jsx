@@ -1,13 +1,15 @@
 import { NavBar } from "../../../navBar/navBar";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { useParams } from "react-router";
 import RecipeReviewCard from "./card";
 import "./style/userPage.style.scss";
 import axios from "axios";
+import { LogOutContext } from "../../../../App/context/context";
 
 export const UserProfile = ({ postsData, getData }) => {
-  const userLogged = window.localStorage.getItem("userName").toLowerCase();
+  const { isLoggedIn } = useContext(LogOutContext);
   const token = window.localStorage.getItem("token");
+  const [userLogged, setUserLogged] = useState("");
   const [isData, serIsData] = useState(false);
   const [filteredData, setFilteredData] = useState();
   const userNameParam = Object.values(useParams()).toString();
@@ -41,6 +43,7 @@ export const UserProfile = ({ postsData, getData }) => {
   const renderComments = (comment, postId, postOwner) => {
     const { _id, date, userName, content } = comment;
     let name = userName.charAt(0).toUpperCase() + userName.slice(1);
+    console.log(postOwner, userLogged);
     return (
       <div id={_id} key={_id} className="comment-container">
         <div className="crud-comment-options">
@@ -52,12 +55,14 @@ export const UserProfile = ({ postsData, getData }) => {
               className="fas fa-trash"
             />
           )}
-          <i
-            name="edit"
-            onClick={handleClick}
-            id="edit-icon"
-            className="fas fa-pencil-alt"
-          />
+          {userLogged === userName && (
+            <i
+              name="edit"
+              onClick={handleClick}
+              id="edit-icon"
+              className="fas fa-pencil-alt"
+            />
+          )}
         </div>
         <h3>{name}</h3>
         <p className="date">{date}</p>
@@ -98,6 +103,9 @@ export const UserProfile = ({ postsData, getData }) => {
 
   useEffect(() => {
     postsData && filterData();
+
+    isLoggedIn &&
+      setUserLogged(window.localStorage.getItem("userName").toLowerCase());
   }, [postsData]); // eslint-disable-line
 
   return (
