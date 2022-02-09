@@ -8,7 +8,8 @@ import { LogOutContext } from "../../../../App/context/context";
 
 export const UserProfile = ({ postsData, getData }) => {
   const { isLoggedIn } = useContext(LogOutContext);
-  const token = window.localStorage.getItem("token");
+  let token = window.localStorage.getItem("token");
+  let userEmail = window.localStorage.getItem("email");
   const [userLogged, setUserLogged] = useState("");
   const [isData, serIsData] = useState(false);
   const [filteredData, setFilteredData] = useState();
@@ -37,13 +38,13 @@ export const UserProfile = ({ postsData, getData }) => {
     const { id } = target;
 
     id === "delete-icon" && deleteComment(_id, postId);
-    // edit === icon;
+    // id === "edit-icon" && setIsUpdatePost(true);
+    console.log(id);
   };
 
   const renderComments = (comment, postId, postOwner) => {
-    const { _id, date, userName, content } = comment;
+    const { _id, date, userName, content, email } = comment;
     let name = userName.charAt(0).toUpperCase() + userName.slice(1);
-    console.log(postOwner, userLogged);
     return (
       <div id={_id} key={_id} className="comment-container">
         <div className="crud-comment-options">
@@ -55,10 +56,10 @@ export const UserProfile = ({ postsData, getData }) => {
               className="fas fa-trash"
             />
           )}
-          {userLogged === userName && (
+          {userEmail === email && (
             <i
               name="edit"
-              onClick={handleClick}
+              onClick={(e) => handleClick(e, _id, postId)}
               id="edit-icon"
               className="fas fa-pencil-alt"
             />

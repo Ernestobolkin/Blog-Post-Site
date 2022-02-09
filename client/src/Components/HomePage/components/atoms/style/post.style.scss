@@ -5,7 +5,7 @@
     text-decoration: none;
     color: black;
   }
-  
+
   .user-link:hover {
     color: #00adb5;
     text-decoration: underline;
@@ -34,4 +34,37 @@
       color: rgb(0, 0, 0);
     }
   }
+}
+
+.updatePost-card {
+  position: fixed;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  width: 30%;
+  height: 30%;
+  background-color: rgb(255, 255, 255);
+  border: 1px solid gray;
+  border-radius: 5px;
+  box-shadow: 0.5px 0.5px 0.5px 0.5px gray;
+  z-index: 10;
+
+  i {
+    cursor: pointer;
+    margin: 6px;
+    width: min-content;
+  }
+  i:hover {
+    color: red;
+  }
+  .title {
+    margin: 0 auto 20px auto;
+  }
+  #content {
+    margin: 0 auto;
+  }
+  // minHeight: "200px",
+  // height: "fit-content",
+  // minWidth: "60%",
+  // maxWidth: "60%",
 }

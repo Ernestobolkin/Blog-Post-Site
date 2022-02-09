@@ -35,6 +35,7 @@ export default function RecipeReviewCard({
     setExpanded(!expanded);
   };
 
+
   return (
     <Card className="card">
       <CardHeader title={`${title}`} subheader={`${date}`} />
@@ -56,7 +57,7 @@ export default function RecipeReviewCard({
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
           {children}
-          <AddComment  id={id} getData={getData} />
+          <AddComment id={id} getData={getData} />
         </CardContent>
       </Collapse>
     </Card>

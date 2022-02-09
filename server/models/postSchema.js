@@ -20,6 +20,10 @@ const commentSchema = new Schema({
       minute: "2-digit",
     }),
   },
+  email:{
+    type:String,
+    required: true,
+  }
 });
 
 const postSchema = new Schema({

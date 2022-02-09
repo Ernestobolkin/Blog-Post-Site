@@ -6,13 +6,19 @@ import { RegisterPage } from "../Components/Signup/Signup";
 import { UserProfile } from "../Components/HomePage/components/userPage/userPage";
 import { useEffect, useState } from "react";
 import { useUserAuth } from "./useInit/init";
-import { LogOutContext, PostsContext, UserDataContext } from "./context/context";
+import {
+  LogOutContext,
+  PostsContext,
+  UserDataContext,
+} from "./context/context";
 import axios from "axios";
 import "./style/app.style.scss";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [postsData, setPostsData] = useState(null);
+  const [userNameLocal, setUserNameLocal] = useState("");
+  const [userToken, setUserToken] = useState("");
   const loggedIn = useUserAuth();
 
   const getData = () => {
@@ -34,6 +40,8 @@ function App() {
   useEffect(() => {
     getData();
     if (loggedIn) {
+      setUserNameLocal(localStorage.getItem("userName"));
+      setUserToken(localStorage.getItem("token"));
       setIsLoggedIn(true);
     }
   }, [loggedIn]); // eslint-disable-line
@@ -44,7 +52,9 @@ function App() {
     <>
       <LogOutContext.Provider value={{ logOut, isLoggedIn }}>
         <PostsContext.Provider value={{ postsData }}>
-          <UserDataContext.Provider value={{ postsData }}>
+          <UserDataContext.Provider
+            value={{ postsData, userNameLocal, userToken }}
+          >
             <Routes>
               <Route
                 path="/post/*"
@@ -60,10 +70,7 @@ function App() {
                 path={ROUTES.REGISTER}
                 element={<RegisterPage setIsLoggedIn={setIsLoggedIn} />}
               />
-              <Route
-                path={"/*"}
-                element={<HomePage getData={getData} />}
-              />
+              <Route path={"/*"} element={<HomePage getData={getData} />} />
             </Routes>
           </UserDataContext.Provider>
         </PostsContext.Provider>

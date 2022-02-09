@@ -35,10 +35,12 @@ export const NavBar = () => {
         logOut(true);
         localStorage.removeItem("token");
         localStorage.removeItem("userName");
+        localStorage.removeItem("email");
       })
       .catch((error) => {
         localStorage.removeItem("token");
         localStorage.removeItem("userName");
+        localStorage.removeItem("email");
         logOut(true);
         console.log(error.response.data);
       });

@@ -115,9 +115,10 @@ const addComment = async (req, res) => {
   try {
     const { content, postId } = req.body;
     const postData = {
-      userId: req.useId,
+      userId: req.userId,
       userName: req.user.name,
       content,
+      email:req.email
     };
     const id = mongoose.Types.ObjectId(postId);
     const test = await Posts.findById({ _id: id });
@@ -138,7 +139,7 @@ const deletePost = async (req, res) => {
   try {
     const { postId } = req.params;
     const post = await Posts.findById({ _id: postId });
-    if (post.owner.toString() === req.useId) {
+    if (post.owner.toString() === req.userId) {
       const removedPost = await Posts.deleteOne({ _id: postId });
       res.status(200).send(["post deleted", removedPost]);
     } else {
@@ -154,9 +155,9 @@ const deleteComment = async (req, res) => {
     const { commentId } = req.body;
     const { postId } = req.params;
 
-    const remover = req.useId;
+    const remover = req.userId;
     const post = await Posts.findById({ _id: postId });
-    const owner = post.owner.toString()
+    const owner = post.owner.toString();
 
     if (owner === remover) {
       await Posts.findByIdAndUpdate(
@@ -164,8 +165,8 @@ const deleteComment = async (req, res) => {
         { $pull: { comments: { _id: commentId } } },
         { new: true }
       );
-      res.status(200).send("comment has been removed")
-    }else{
+      res.status(200).send("comment has been removed");
+    } else {
       throw new Error("something went wrong");
     }
   } catch (e) {
@@ -176,6 +177,23 @@ const deleteComment = async (req, res) => {
 const getAllPosts = async (req, res) => {
   const posts = await Posts.find({});
   res.status(200).send(posts);
+};
+
+const updatePost = async (req, res) => {
+  try {
+    const { postId } = req.params;
+    const { title, content } = req.body;
+    await Posts.findByIdAndUpdate(
+      { _id: postId },
+      {
+        content,
+        title,
+      }
+    );
+    res.status(200).send("post Chaneged");
+  } catch (e) {
+    res.status(500).send(e.message);
+  }
 };
 
 module.exports = {
@@ -191,4 +209,5 @@ module.exports = {
   deletePost,
   deleteComment,
   getAllPosts,
+  updatePost,
 };

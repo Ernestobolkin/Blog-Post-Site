@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./style/post.style.scss";
 import { Link } from "react-router-dom";
 import Card from "@mui/material/Card";
@@ -7,10 +7,16 @@ import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import "./style/post.style.scss";
 import axios from "axios";
+import { PostUpdate } from "./postCrud/postCrud";
 
-export const Post = ({getData, post: { _id, title, content, userName, date } }) => {
-  const userLogged = window.localStorage.getItem("userName");
-  const token = window.localStorage.getItem("token");
+export const Post = ({
+  getData,
+  post: { _id, title, content, userName, date, email },
+}) => {
+  const [isUpdatePost, setIsUpdatePost] = useState(false);
+  let token = window.localStorage.getItem("token");
+  let userEmail = window.localStorage.getItem("email");
+
   let name = userName.charAt(0).toUpperCase() + userName.slice(1);
   const deletePost = () => {
     let config = {
@@ -22,10 +28,10 @@ export const Post = ({getData, post: { _id, title, content, userName, date } }) 
     };
     axios(config)
       .then(({ data }) => {
-        getData()
+        getData();
       })
       .catch((error) => {
-        console.log(error);
+        console.dir(error);
         console.log("Error");
       });
   };
@@ -33,7 +39,7 @@ export const Post = ({getData, post: { _id, title, content, userName, date } }) 
   const handleClick = ({ target }) => {
     const { id } = target;
     id === "delete-icon" && deletePost();
-    // edit-icon
+    id === "edit-icon" && setIsUpdatePost(true);
   };
 
   const renderPostCard = () => {
@@ -47,7 +53,7 @@ export const Post = ({getData, post: { _id, title, content, userName, date } }) 
           maxWidth: "60%",
         }}
       >
-        {userLogged === name && (
+        {email === userEmail && (
           <div className="crud-post-options">
             <i
               name="delete"
@@ -83,5 +89,20 @@ export const Post = ({getData, post: { _id, title, content, userName, date } }) 
       </Card>
     );
   };
-  return <>{renderPostCard()}</>;
+  return (
+    <>
+      {isUpdatePost && (
+        <div className="updatePost-card">
+          <PostUpdate
+            getData={getData}
+            _id={_id}
+            setIsUpdatePost={setIsUpdatePost}
+            content={content}
+            title={title}
+          />
+        </div>
+      )}
+      {renderPostCard()}
+    </>
+  );
 };

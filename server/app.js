@@ -18,6 +18,7 @@ const {
   deletePost,
   deleteComment,
   getAllPosts,
+  updatePost,
 } = require("./routers/user");
 
 const app = express();
@@ -54,6 +55,8 @@ app.post("/user/post/comment/", auth, addComment);
 app.delete("/user/post/:postId", auth, deletePost);
 
 app.put("/user/post/comment/:postId", auth, deleteComment);
+
+app.put("/user/post/update/:postId", auth, updatePost);
 
 app.use("*", (req, res) => {
   res.send(path.resolve(publicPath, "index.html"));
