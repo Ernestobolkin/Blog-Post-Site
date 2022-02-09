@@ -28,6 +28,7 @@ export const AddComment = ({ getData, id }) => {
     axios(config)
       .then(({ data }) => {
         getData();
+        setCommentValue("")
       })
       .catch((error) => {
         console.log(error);

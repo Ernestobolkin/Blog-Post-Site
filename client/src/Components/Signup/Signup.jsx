@@ -5,6 +5,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { TextField } from "@mui/material";
 import Button from "@mui/material/Button";
+import ROUTES from "../../constants/routes";
 export const RegisterPage = ({ setIsLoggedIn }) => {
   const navigate = useNavigate();
   const [register, setRegister] = useState({
@@ -33,7 +34,7 @@ export const RegisterPage = ({ setIsLoggedIn }) => {
         window.localStorage.setItem("token", data.token);
         window.localStorage.setItem("userName",name);
         window.localStorage.setItem("email", data.user.email);
-        navigate("/home");
+        navigate(ROUTES.HOME_PAGE);
         setIsLoggedIn(true);
       })
       .catch((error) => {

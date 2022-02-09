@@ -1,18 +1,17 @@
 import { NavBar } from "../../../navBar/navBar";
-import { useEffect, useState, useContext } from "react";
+import { useContext, useRef } from "react";
 import { useParams } from "react-router";
 import RecipeReviewCard from "./card";
 import "./style/userPage.style.scss";
 import axios from "axios";
-import { LogOutContext } from "../../../../App/context/context";
+import { PostsContext } from "../../../../App/context/context";
 
-export const UserProfile = ({ postsData, getData }) => {
-  const { isLoggedIn } = useContext(LogOutContext);
-  let token = window.localStorage.getItem("token");
-  let userEmail = window.localStorage.getItem("email");
-  const [userLogged, setUserLogged] = useState("");
-  const [isData, serIsData] = useState(false);
-  const [filteredData, setFilteredData] = useState();
+export const UserProfile = ({ getData }) => {
+  const { postsData } = useContext(PostsContext);
+  let token = localStorage.getItem("token");
+  let userEmail = localStorage.getItem("email");
+  const userName = localStorage.getItem("userName")?.toLowerCase();
+  const userNameRef = useRef(userName);
   const userNameParam = Object.values(useParams()).toString();
 
   const deleteComment = (id, postId) => {
@@ -25,7 +24,7 @@ export const UserProfile = ({ postsData, getData }) => {
       data: { commentId: id },
     };
     axios(config)
-      .then(({ data }) => {
+      .then(() => {
         getData();
       })
       .catch((error) => {
@@ -34,21 +33,19 @@ export const UserProfile = ({ postsData, getData }) => {
       });
   };
 
-  const handleClick = ({ target }, _id, postId) => {
-    const { id } = target;
-
+  const handleClick = ({ target: { id } }, _id, postId) => {
     id === "delete-icon" && deleteComment(_id, postId);
     // id === "edit-icon" && setIsUpdatePost(true);
-    console.log(id);
   };
 
   const renderComments = (comment, postId, postOwner) => {
     const { _id, date, userName, content, email } = comment;
     let name = userName.charAt(0).toUpperCase() + userName.slice(1);
+
     return (
-      <div id={_id} key={_id} className="comment-container">
+      <div key={_id} className="comment-container">
         <div className="crud-comment-options">
-          {postOwner === userLogged && (
+          {postOwner === userNameRef.current && (
             <i
               name="delete"
               onClick={(e) => handleClick(e, _id, postId)}
@@ -75,40 +72,6 @@ export const UserProfile = ({ postsData, getData }) => {
     );
   };
 
-  const renderPost = () =>
-    filteredData.map((post) => {
-      const { _id, title, date, content, userName } = post;
-      return (
-        <RecipeReviewCard
-          key={_id}
-          id={_id}
-          title={title}
-          date={date}
-          content={content}
-          getData={getData}
-        >
-          {post?.comments?.map((comment) =>
-            renderComments(comment, _id, userName)
-          )}
-        </RecipeReviewCard>
-      );
-    });
-
-  const filterData = () => {
-    const userData = postsData
-      .filter((post) => post.userName === userNameParam)
-      .reverse();
-    setFilteredData(userData);
-    serIsData(true);
-  };
-
-  useEffect(() => {
-    postsData && filterData();
-
-    isLoggedIn &&
-      setUserLogged(window.localStorage.getItem("userName").toLowerCase());
-  }, [postsData]); // eslint-disable-line
-
   return (
     <>
       <NavBar />
@@ -117,7 +80,26 @@ export const UserProfile = ({ postsData, getData }) => {
           {userNameParam.charAt(0).toUpperCase() + userNameParam.slice(1)}
         </h2>
 
-        {isData && renderPost()}
+        {postsData
+          .filter((post) => post.userName === userNameParam)
+          .reverse()
+          .map((post) => {
+            const { _id, title, date, content, userName } = post;
+            return (
+              <RecipeReviewCard
+                key={_id}
+                id={_id}
+                title={title}
+                date={date}
+                content={content}
+                getData={getData}
+              >
+                {post?.comments?.map((comment) =>
+                  renderComments(comment, _id, userName)
+                )}
+              </RecipeReviewCard>
+            );
+          })}
       </div>
     </>
   );

@@ -4,6 +4,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { TextField } from "@mui/material";
 import Button from "@mui/material/Button";
+import ROUTES from "../../constants/routes";
 
 export const Form = ({ setIsLoggedIn }) => {
   const navigate = useNavigate();
@@ -27,7 +28,7 @@ export const Form = ({ setIsLoggedIn }) => {
     };
     axios(config)
       .then(({ data }) => {
-        navigate("/home");
+        navigate(ROUTES.HOME_PAGE);
         console.log(data);
         let name = data[1].name.charAt(0).toUpperCase() + data[1].name.slice(1);
         window.localStorage.setItem("token", data[2]);

@@ -16,7 +16,7 @@ import "./style/app.style.scss";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [postsData, setPostsData] = useState(null);
+  const [postsData, setPostsData] = useState([]);
   const [userNameLocal, setUserNameLocal] = useState("");
   const [userToken, setUserToken] = useState("");
   const loggedIn = useUserAuth();
@@ -52,16 +52,9 @@ function App() {
     <>
       <LogOutContext.Provider value={{ logOut, isLoggedIn }}>
         <PostsContext.Provider value={{ postsData }}>
-          <UserDataContext.Provider
-            value={{ postsData, userNameLocal, userToken }}
-          >
+        
             <Routes>
-              <Route
-                path="/post/*"
-                element={
-                  <UserProfile getData={getData} postsData={postsData} />
-                }
-              />
+              <Route path="/post/*" element={<UserProfile getData={getData} postsData={postsData} />}/>
               <Route
                 path={ROUTES.LOGIN}
                 element={<LoginPage setIsLoggedIn={setIsLoggedIn} />}
@@ -72,7 +65,7 @@ function App() {
               />
               <Route path={"/*"} element={<HomePage getData={getData} />} />
             </Routes>
-          </UserDataContext.Provider>
+       
         </PostsContext.Provider>
       </LogOutContext.Provider>
     </>
