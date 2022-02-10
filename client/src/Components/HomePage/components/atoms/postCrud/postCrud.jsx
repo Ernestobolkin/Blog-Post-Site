@@ -1,5 +1,6 @@
 import TextField from "@mui/material/TextField";
-import {  useState } from "react";
+import Button from "@mui/material/Button";
+import { useState } from "react";
 import axios from "axios";
 
 export const PostUpdate = ({
@@ -14,7 +15,6 @@ export const PostUpdate = ({
     title,
     content,
   });
-
 
   const handleClick = () => {
     let config = {
@@ -40,8 +40,6 @@ export const PostUpdate = ({
     setIsUpdatePost(false);
   };
 
-
-
   const handleChange = ({ target }) => {
     const { name, value } = target;
     name === "title" && setValueToSend({ ...valueToSend, title: value });
@@ -51,25 +49,27 @@ export const PostUpdate = ({
     <>
       <i name="icon" onClick={handleClickIcon} className="fas fa-times"></i>
       <TextField
+        className="text-field-title"
         size="small"
         type="text"
         name="title"
         id="standard-basic"
-        variant="standard"
+        variant="outlined"
         onChange={handleChange}
         value={valueToSend.title}
       />
       <TextField
-        className="outlined-multiline-static"
+        id="outlined-multiline-static"
+        className="text-field-content"
         multiline
-        rows={4}
+        rows={5}
         name="content"
         onChange={handleChange}
         value={valueToSend.content}
       />
-      <button name="btn" onClick={handleClick}>
+      <Button className="btn" variant="contained" name="btn" onClick={handleClick}>
         save
-      </button>
+      </Button>
     </>
   );
 };

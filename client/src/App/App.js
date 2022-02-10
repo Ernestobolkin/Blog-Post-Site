@@ -9,7 +9,6 @@ import { useUserAuth } from "./useInit/init";
 import {
   LogOutContext,
   PostsContext,
-  UserDataContext,
 } from "./context/context";
 import axios from "axios";
 import "./style/app.style.scss";
@@ -17,8 +16,6 @@ import "./style/app.style.scss";
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [postsData, setPostsData] = useState([]);
-  const [userNameLocal, setUserNameLocal] = useState("");
-  const [userToken, setUserToken] = useState("");
   const loggedIn = useUserAuth();
 
   const getData = () => {
@@ -40,8 +37,6 @@ function App() {
   useEffect(() => {
     getData();
     if (loggedIn) {
-      setUserNameLocal(localStorage.getItem("userName"));
-      setUserToken(localStorage.getItem("token"));
       setIsLoggedIn(true);
     }
   }, [loggedIn]); // eslint-disable-line

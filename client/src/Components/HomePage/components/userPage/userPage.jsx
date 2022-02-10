@@ -1,18 +1,19 @@
 import { NavBar } from "../../../navBar/navBar";
-import { useContext, useRef } from "react";
+import { useContext, useState } from "react";
 import { useParams } from "react-router";
 import RecipeReviewCard from "./card";
 import "./style/userPage.style.scss";
 import axios from "axios";
 import { PostsContext } from "../../../../App/context/context";
+import { CommentUpdate } from "./editComment/editComment";
 
 export const UserProfile = ({ getData }) => {
   const { postsData } = useContext(PostsContext);
   let token = localStorage.getItem("token");
   let userEmail = localStorage.getItem("email");
-  const userName = localStorage.getItem("userName")?.toLowerCase();
-  const userNameRef = useRef(userName);
   const userNameParam = Object.values(useParams()).toString();
+  const [isupdateComment, setIsUpdateComment] = useState(false);
+  const [tempId, setTempId] = useState("");
 
   const deleteComment = (id, postId) => {
     let config = {
@@ -35,17 +36,33 @@ export const UserProfile = ({ getData }) => {
 
   const handleClick = ({ target: { id } }, _id, postId) => {
     id === "delete-icon" && deleteComment(_id, postId);
-    // id === "edit-icon" && setIsUpdatePost(true);
+    id === "edit-icon" && handleClickEditIcon(_id);
+  };
+
+  const handleClickEditIcon = (_id) => {
+    setTempId(_id)
+    setIsUpdateComment(true)
   };
 
   const renderComments = (comment, postId, postOwner) => {
     const { _id, date, userName, content, email } = comment;
-    let name = userName.charAt(0).toUpperCase() + userName.slice(1);
 
+    let name = userName.charAt(0).toUpperCase() + userName.slice(1);
     return (
-      <div key={_id} className="comment-container">
+      <div key={_id} id={_id} className="comment-container">
+        {isupdateComment && (
+          <div className="comment-update-container">
+            <CommentUpdate
+              getData={getData}
+              setIsUpdateComment={setIsUpdateComment}
+              postId={postId}
+              tempId={tempId}
+              content={content}
+            />
+          </div>
+        )}
         <div className="crud-comment-options">
-          {postOwner === userNameRef.current && (
+          {userEmail === email && (
             <i
               name="delete"
               onClick={(e) => handleClick(e, _id, postId)}
@@ -79,7 +96,6 @@ export const UserProfile = ({ getData }) => {
         <h2 className="userName">
           {userNameParam.charAt(0).toUpperCase() + userNameParam.slice(1)}
         </h2>
-
         {postsData
           .filter((post) => post.userName === userNameParam)
           .reverse()
@@ -94,7 +110,7 @@ export const UserProfile = ({ getData }) => {
                 content={content}
                 getData={getData}
               >
-                {post?.comments?.map((comment) =>
+                {post.comments?.map((comment) =>
                   renderComments(comment, _id, userName)
                 )}
               </RecipeReviewCard>

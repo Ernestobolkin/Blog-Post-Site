@@ -49,6 +49,21 @@
   box-shadow: 0.5px 0.5px 0.5px 0.5px gray;
   z-index: 10;
 
+  .text-field-title{
+    width: 40%;
+    margin: 0 auto 10px auto;
+  }
+
+  .text-field-content{
+    width:90%;
+    margin: 0 auto 18px auto;
+  }
+
+  .btn{
+    width: min-content;
+    margin: 0 auto;
+  }
+
   i {
     cursor: pointer;
     margin: 6px;
@@ -63,8 +78,4 @@
   #content {
     margin: 0 auto;
   }
-  // minHeight: "200px",
-  // height: "fit-content",
-  // minWidth: "60%",
-  // maxWidth: "60%",
 }

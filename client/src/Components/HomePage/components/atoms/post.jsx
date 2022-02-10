@@ -27,9 +27,7 @@ export const Post = ({
       },
     };
     axios(config)
-      .then(({ data }) => {
-        getData();
-      })
+      .then(() => getData())
       .catch((error) => {
         console.dir(error);
         console.log("Error");
