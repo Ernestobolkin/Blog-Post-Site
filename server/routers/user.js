@@ -118,7 +118,7 @@ const addComment = async (req, res) => {
       userId: req.userId,
       userName: req.user.name,
       content,
-      email:req.email
+      email: req.email,
     };
     const id = mongoose.Types.ObjectId(postId);
     const test = await Posts.findById({ _id: id });
@@ -155,20 +155,12 @@ const deleteComment = async (req, res) => {
     const { commentId } = req.body;
     const { postId } = req.params;
 
-    const remover = req.userId;
-    const post = await Posts.findById({ _id: postId });
-    const owner = post.owner.toString();
-
-    if (owner === remover) {
-      await Posts.findByIdAndUpdate(
-        { _id: postId },
-        { $pull: { comments: { _id: commentId } } },
-        { new: true }
-      );
-      res.status(200).send("comment has been removed");
-    } else {
-      throw new Error("something went wrong");
-    }
+    await Posts.findByIdAndUpdate(
+      { _id: postId },
+      { $pull: { comments: { _id: commentId } } },
+      { new: true }
+    );
+    res.status(200).send("comment has been removed");
   } catch (e) {
     res.status(500).send(e.message);
   }
@@ -196,6 +188,26 @@ const updatePost = async (req, res) => {
   }
 };
 
+const updateComment = async (req, res) => {
+  console.log([req.body, req.params, "200"]);
+  try {
+    const { postId } = req.params;
+    const { commentId, content } = req.body;
+    const userId = req.userId;
+    const post = await Posts.findById({ _id: postId });
+    const comment = post.comments.find((comment) => comment.id === commentId);
+    if (comment.userId === userId) {
+      comment.content = content;
+      res.status(200).send("comment chaneged");
+      await post.save();
+    } else {
+      throw new Error("Sorry cannot update comment");
+    }
+  } catch (e) {
+    res.status(500).send(e.message);
+  }
+};
+
 module.exports = {
   addUser,
   getAllUsers,
@@ -210,4 +222,5 @@ module.exports = {
   deleteComment,
   getAllPosts,
   updatePost,
+  updateComment,
 };
