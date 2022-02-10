@@ -2,16 +2,26 @@ import { useState } from "react";
 import "../Login/styles/login.style.scss";
 import { NavBar } from "../navBar/navBar";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { TextField } from "@mui/material";
 import Button from "@mui/material/Button";
 import ROUTES from "../../constants/routes";
+import { ErrorMsg } from "../ErrorSnackBar/error";
+
 export const RegisterPage = ({ setIsLoggedIn }) => {
   const navigate = useNavigate();
   const [register, setRegister] = useState({
     name: "",
     email: "",
     password: "",
+  });
+
+  const [error, setError] = useState(false);
+  const [logged, setLogged] = useState(false);
+
+  const [msg, setMsg] = useState({
+    logged: "",
+    err: "",
   });
 
   const handleChange = ({ target }) => {
@@ -30,15 +40,22 @@ export const RegisterPage = ({ setIsLoggedIn }) => {
     };
     axios(config)
       .then(({ data }) => {
-        let name = data.user.name.charAt(0).toUpperCase() + data.user.name.slice(1);
-        window.localStorage.setItem("token", data.token);
-        window.localStorage.setItem("userName",name);
-        window.localStorage.setItem("email", data.user.email);
-        navigate(ROUTES.HOME_PAGE);
+        setLogged(true);
         setIsLoggedIn(true);
+        let name =
+          data.user.name.charAt(0).toUpperCase() + data.user.name.slice(1);
+        window.localStorage.setItem("token", data.token);
+        window.localStorage.setItem("userName", name);
+        window.localStorage.setItem("email", data.user.email);
+        setMsg({ ...msg, logged: `Hello ${name}, Welcome` });
+        setTimeout(() => {
+          navigate(ROUTES.HOME_PAGE);
+        }, 1000);
       })
       .catch((error) => {
-        console.log(error);
+        setError(true);
+        setMsg({ ...msg, err: "Somthing went Wrong, Please check the fields" });
+        console.dir(error);
         console.log("Error");
       });
   };
@@ -46,8 +63,14 @@ export const RegisterPage = ({ setIsLoggedIn }) => {
   return (
     <>
       <NavBar />
+      {logged && (
+        <ErrorMsg string={msg.logged} setMsg={setLogged} type={"success"} />
+      )}
+      {error && <ErrorMsg string={msg.err} setMsg={setError} type={"error"} />}
+
       <div className="register-page">
         <div className="register-container">
+          <h2 style={{ margin: "0px auto 2rem auto" }}>Sign up</h2>
           <form className="form-container">
             <br />
             <TextField
@@ -102,6 +125,12 @@ export const RegisterPage = ({ setIsLoggedIn }) => {
               required
             />
             <br />
+            <div style={{ textAlign: "center" }}>
+              <p>Have an account?</p>
+              <Link className="link" to={ROUTES.LOGIN}>
+                Login
+              </Link>
+            </div>
             <br />
             <Button onClick={handleClick} variant="contained">
               Register

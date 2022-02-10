@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { styled } from "@mui/material/styles";
 import Card from "@mui/material/Card";
 import CardHeader from "@mui/material/CardHeader";
@@ -9,6 +9,7 @@ import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { AddComment } from "./addComment/addComment";
+import { LogOutContext } from "../../../../App/context/context";
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -30,11 +31,10 @@ export default function RecipeReviewCard({
   getData,
 }) {
   const [expanded, setExpanded] = useState(false);
-
+  const { isLoggedIn } = useContext(LogOutContext);
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
-
 
   return (
     <Card className="card">
@@ -57,7 +57,7 @@ export default function RecipeReviewCard({
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
           {children}
-          <AddComment id={id} getData={getData} />
+          {isLoggedIn && <AddComment id={id} getData={getData} />}
         </CardContent>
       </Collapse>
     </Card>

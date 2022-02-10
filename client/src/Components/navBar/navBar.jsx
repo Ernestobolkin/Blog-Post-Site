@@ -49,21 +49,25 @@ export const NavBar = () => {
   return (
     <nav className={classes.container}>
       <div className={classes.flout.left}>
-        <Link className="item" to={`${ROUTES.HOME_PAGE}`}>
-          Logo
+        <Link className="items" to={`${ROUTES.HOME_PAGE}`}>
+          <span className="logo">
+            <span className="post">
+              Post<span className="me">Me</span>
+            </span>
+          </span>
         </Link>
       </div>
       <div className={classes.flout.right}>
         {isLoggedIn && <BackgroundLetterAvatars />}
         {!isLoggedIn && (
-          <Link className={classes.item} to={`${ROUTES.LOGIN}`}>
+          <Link className={`${classes.item} items`} to={`${ROUTES.LOGIN}`}>
             login
           </Link>
         )}
         {isLoggedIn && (
           <Link
             onClick={() => onClickLogout()}
-            className={classes.item}
+            className={`${classes.item} items`}
             to={`${ROUTES.LOGIN}`}
           >
             Logout
