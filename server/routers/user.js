@@ -189,7 +189,6 @@ const updatePost = async (req, res) => {
 };
 
 const updateComment = async (req, res) => {
-  console.log([req.body, req.params, "200"]);
   try {
     const { postId } = req.params;
     const { commentId, content } = req.body;
