@@ -6,6 +6,7 @@ import { RegisterPage } from "../Components/Signup/Signup";
 import { UserProfile } from "../Components/HomePage/components/userPage/userPage";
 import { useEffect, useState } from "react";
 import { useUserAuth } from "./useInit/init";
+import "./style/normalize.css"
 import {
   LogOutContext,
   PostsContext,

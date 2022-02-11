@@ -38,9 +38,11 @@ $red_color: #ea4f4c;
   .left {
     margin-left: 10px;
   }
-
-  .me {
-    color: $red_color;
+  .logo{
+    .me {
+      transition: all 0.3s ease-in-out;
+      color: $red_color;
+    }
   }
 
   .logo:hover{

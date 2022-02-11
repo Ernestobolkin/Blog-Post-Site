@@ -22,13 +22,13 @@
     }
     #delete-icon {
       margin-right: 10px;
-      color:#D84646;
+      color:#ea4f4c;
     }
     #edit-icon {
       color: rgba(0, 0, 0, 0.822);
     }
     #delete-icon:hover {
-      color:#D84646;
+      color:#ff3935;
     }
     #edit-icon:hover {
       color: rgb(0, 0, 0);
@@ -42,7 +42,8 @@
   display: flex;
   flex-direction: column;
   width: 30%;
-  height: 30%;
+  height: min-content;
+  padding: 0 0 10px 0 ;
   background-color: rgb(255, 255, 255);
   border: 1px solid gray;
   border-radius: 5px;

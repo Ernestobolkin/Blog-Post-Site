@@ -63,6 +63,7 @@ export const Form = ({ setIsLoggedIn }) => {
       {error && (
         <ErrorMsg string={msg.err} setMsg={setError} type={"error"}/>
       )}
+      {/* <ErrorMsg string="hello darkness my old friend"/> */}
       <form className="form-container">
         <h2 style={{ margin: "0px auto 2rem auto" }}>Login</h2>
         <TextField

@@ -1,23 +1,9 @@
 .container{
   position: absolute;
-  top: 100px;
+  display: flex;
+  justify-content: center;
+  align-self: center;
+  top: 50px;
   right: 50%;
   transform: translate(50%, 50%);
 }
-
-
-// .comment-update-container {
-//   position: fixed;
-//   top: 50%;
-//   right: 50%;
-
-//   display: flex;
-//   flex-direction: column;
-//   width: 20%;
-//   height: 20%;
-//   background-color: rgb(255, 255, 255);
-//   border: 1px solid gray;
-//   border-radius: 5px;
-//   box-shadow: 0.5px 0.5px 0.5px 0.5px gray;
-//   z-index: 10;
-// }
