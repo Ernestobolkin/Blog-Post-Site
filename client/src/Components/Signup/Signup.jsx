@@ -47,7 +47,7 @@ export const RegisterPage = ({ setIsLoggedIn }) => {
         window.localStorage.setItem("token", data.token);
         window.localStorage.setItem("userName", name);
         window.localStorage.setItem("email", data.user.email);
-        setMsg({ ...msg, logged: `Hello ${name}, Welcome` });
+        setMsg({ ...msg, logged: `Welcome ${name}` });
         setTimeout(() => {
           navigate(ROUTES.HOME_PAGE);
         }, 1000);

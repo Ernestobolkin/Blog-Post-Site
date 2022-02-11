@@ -1,4 +1,5 @@
 import "./navBar.style.scss";
+import "./mobileNav.style.scss";
 import { Link } from "react-router-dom";
 import ROUTES from "../../constants/routes";
 import { useEffect, useContext, useState } from "react";
@@ -49,7 +50,7 @@ export const NavBar = () => {
   return (
     <nav className={classes.container}>
       <div className={classes.flout.left}>
-        <Link className="items" to={`${ROUTES.HOME_PAGE}`}>
+        <Link className="items mobile-item" to={`${ROUTES.HOME_PAGE}`}>
           <span className="logo">
             <span className="post">
               Post<span className="me">Me</span>
@@ -57,22 +58,26 @@ export const NavBar = () => {
           </span>
         </Link>
       </div>
-      <div className={classes.flout.right}>
-        {isLoggedIn && <BackgroundLetterAvatars />}
-        {!isLoggedIn && (
-          <Link className={`${classes.item} items`} to={`${ROUTES.LOGIN}`}>
-            login
-          </Link>
-        )}
-        {isLoggedIn && (
-          <Link
-            onClick={() => onClickLogout()}
-            className={`${classes.item} items`}
-            to={`${ROUTES.LOGIN}`}
-          >
-            Logout
-          </Link>
-        )}
+
+      <div className="mobileLeft">
+        <div className={classes.flout.right}>
+          {isLoggedIn && <BackgroundLetterAvatars />}
+          {!isLoggedIn && (
+            <Link className={`${classes.item} items`} to={`${ROUTES.LOGIN}`}>
+              login
+            </Link>
+          )}
+          {isLoggedIn && (
+            <Link
+              onClick={() => onClickLogout()}
+              className={`${classes.item} items`}
+              to={`${ROUTES.LOGIN}`}
+            >
+              Logout
+            </Link>
+          )}
+        </div>
+        <div className="logout-mobile"></div>
       </div>
     </nav>
   );

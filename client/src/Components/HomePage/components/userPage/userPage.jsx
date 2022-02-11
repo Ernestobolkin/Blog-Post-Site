@@ -3,6 +3,7 @@ import { useContext, useState } from "react";
 import { useParams } from "react-router";
 import RecipeReviewCard from "./card";
 import "./style/userPage.style.scss";
+import "./style/mobileUserPage.style.scss";
 import axios from "axios";
 import { PostsContext } from "../../../../App/context/context";
 import { CommentUpdate } from "./editComment/editComment";

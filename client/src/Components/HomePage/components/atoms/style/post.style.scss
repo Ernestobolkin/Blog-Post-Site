@@ -1,5 +1,11 @@
 .card {
   position: relative;
+  // min-height: 200px;
+  // height: fit-content;
+  // min-width: 100%;
+  // max-width:100%;
+  width: 60%;
+  height: 60%;
 
   .user-link {
     text-decoration: none;

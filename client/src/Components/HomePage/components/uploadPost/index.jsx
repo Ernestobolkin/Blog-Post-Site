@@ -3,6 +3,7 @@ import axios from "axios";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import "./style/post.style.scss";
+import "./style/mobilePost.style.scss";
 import Button from "@mui/material/Button";
 
 export const UploadPost = ({ getData }) => {

@@ -28,6 +28,9 @@ $red_color: #ea4f4c;
     align-items: center;
     transition: all 0.3s ease-in-out;
   }
+  .logout-mobile{
+    display: none;
+  }
   .item:hover {
     color: $red_color;
   }
@@ -38,16 +41,16 @@ $red_color: #ea4f4c;
   .left {
     margin-left: 10px;
   }
-  .logo{
+  .logo
     .me {
       transition: all 0.3s ease-in-out;
       color: $red_color;
     }
-  }
+  
 
-  .logo:hover{
+  .logo:hover
     .me{
-      color: $white_color;
-    }
+      color: $black_color;
+    
   }
 }

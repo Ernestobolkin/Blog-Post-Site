@@ -6,6 +6,7 @@ import CardHeader from "@mui/material/CardHeader";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import "./style/post.style.scss";
+import "./style/mobilePost.style.scss";
 import axios from "axios";
 import { PostUpdate } from "./postCrud/postCrud";
 
@@ -44,12 +45,6 @@ export const Post = ({
     return (
       <Card
         className="card"
-        sx={{
-          minHeight: "200px",
-          height: "fit-content",
-          minWidth: "60%",
-          maxWidth: "60%",
-        }}
       >
         {email === userEmail && (
           <div className="crud-post-options">
