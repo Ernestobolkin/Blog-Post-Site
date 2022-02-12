@@ -33,10 +33,10 @@ export const NavBar = () => {
     };
     myApi(config)
       .then(({ data }) => {
-        logOut(true);
         localStorage.removeItem("token");
         localStorage.removeItem("userName");
         localStorage.removeItem("email");
+        logOut(true);
       })
       .catch((error) => {
         localStorage.removeItem("token");
