@@ -50,7 +50,7 @@ export const NavBar = () => {
   return (
     <nav className={classes.container}>
       <div className={classes.flout.left}>
-        <Link className="items mobile-item" to={`${ROUTES.HOME_PAGE}`}>
+        <Link className="items mobile-item" to={`${ROUTES.TRAILING_PATH}`}>
           <span className="logo">
             <span className="post">
               Post<span className="me">Me</span>

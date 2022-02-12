@@ -61,7 +61,6 @@ function App() {
               />
               <Route path={"/*"} element={<HomePage getData={getData} />} />
             </Routes>
-       
         </PostsContext.Provider>
       </LogOutContext.Provider>
     </>

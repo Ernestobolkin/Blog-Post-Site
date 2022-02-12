@@ -49,7 +49,7 @@ export const RegisterPage = ({ setIsLoggedIn }) => {
         window.localStorage.setItem("email", data.user.email);
         setMsg({ ...msg, logged: `Welcome ${name}` });
         setTimeout(() => {
-          navigate(ROUTES.HOME_PAGE);
+          navigate(ROUTES.TRAILING_PATH);
         }, 1000);
       })
       .catch((error) => {

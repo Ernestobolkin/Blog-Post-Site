@@ -63,7 +63,7 @@ export const UserProfile = ({ getData }) => {
           </div>
         )}
         <div className="crud-comment-options">
-          {userEmail === email && (
+          {userEmail === email  && (
             <i
               name="delete"
               onClick={(e) => handleClick(e, _id, postId)}

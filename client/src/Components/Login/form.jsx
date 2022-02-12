@@ -44,7 +44,7 @@ export const Form = ({ setIsLoggedIn }) => {
         window.localStorage.setItem("email", data[1].email);
         setMsg({ ...msg, logged: `Welcome Back ${name}` });
         setTimeout(() => {
-          navigate(ROUTES.HOME_PAGE);
+          navigate(ROUTES.TRAILING_PATH);
         }, 2000);
       })
       .catch((error) => {
