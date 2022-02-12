@@ -1,14 +1,14 @@
 # Blog Post Social Media #
 
-# About :
-This is a MERN project.
-In my time as a student in a full stack web bootcamp, I built a post blog app.
-In This Project I have a full user authentication, posts and comment's with full crud option's.
+As a part of full stack web bootcamp, we requested to build a MERN project.
+So I decided to build my first social blog post web.
+For now, this web has only users with full authentication, post option for the users,
+and a comment section to the posts (of course with full crud options).
 
 ### Technologies used:
-* React
 * MongoDb
 * Express
+* React
 * NodeJs
 
 ## Setup ##
@@ -18,7 +18,8 @@ To start the app:
 3. cd client npm i
 4. npm run dev
 
-#### Coming soon
+#### Upcoming
 * Pictures upload
-* Chat with other user's.
+* Chat with other users.
 * Socket Io
+* Different style
