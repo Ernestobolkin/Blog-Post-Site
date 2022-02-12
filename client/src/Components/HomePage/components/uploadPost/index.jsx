@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import axios from "axios";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import "./style/post.style.scss";
 import "./style/mobilePost.style.scss";
 import Button from "@mui/material/Button";
+import myApi from "../../../../../src/App/api/myApi"
 
 export const UploadPost = ({ getData }) => {
   let token = localStorage.getItem("token");
@@ -21,13 +21,13 @@ export const UploadPost = ({ getData }) => {
     e.preventDefault();
     let config = {
       method: "post",
-      url: "http://localhost:8080/user/post",
+      url: "/user/post",
       data: postValues,
       headers: {
         Authorization: `bearer ${token}`,
       },
     };
-    axios(config)
+    myApi(config)
       .then(({ data }) => {
         getData();
         setPostValues({ title: "", content: "" });

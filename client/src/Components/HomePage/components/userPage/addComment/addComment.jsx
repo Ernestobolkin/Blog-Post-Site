@@ -1,4 +1,4 @@
-import axios from "axios";
+import myApi from "../../../../../App/api/myApi";
 import { useState } from "react";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
@@ -16,7 +16,7 @@ export const AddComment = ({ getData, id }) => {
     let token = localStorage.getItem("token");
     let config = {
       method: "post",
-      url: "http://localhost:8080/user/post/comment",
+      url: "/user/post/comment",
       headers: {
         Authorization: `Beare ${token}`,
       },
@@ -25,7 +25,7 @@ export const AddComment = ({ getData, id }) => {
         postId: id,
       },
     };
-    axios(config)
+    myApi(config)
       .then(({ data }) => {
         getData();
         setCommentValue("")

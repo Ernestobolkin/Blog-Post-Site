@@ -7,7 +7,7 @@ import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import "./style/post.style.scss";
 import "./style/mobilePost.style.scss";
-import axios from "axios";
+import myApi from "../../../../App/api/myApi";
 import { PostUpdate } from "./postCrud/postCrud";
 
 export const Post = ({
@@ -22,12 +22,12 @@ export const Post = ({
   const deletePost = () => {
     let config = {
       method: "delete",
-      url: `http://localhost:8080/user/post/${_id}`,
+      url: `/user/post/${_id}`,
       headers: {
         Authorization: `Barear ${token}`,
       },
     };
-    axios(config)
+    myApi(config)
       .then(() => getData())
       .catch((error) => {
         console.dir(error);

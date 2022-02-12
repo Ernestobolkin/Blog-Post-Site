@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import ROUTES from "../../constants/routes";
 import { useEffect, useContext, useState } from "react";
 import { LogOutContext } from "../../App/context/context";
-import axios from "axios";
+import myApi from "../../App/api/myApi";
 import BackgroundLetterAvatars from "./avatar";
 
 const classes = {
@@ -25,13 +25,13 @@ export const NavBar = () => {
   const onClickLogout = () => {
     let config = {
       method: "post",
-      url: "http://localhost:8080/user/logout",
+      url: "/user/logout",
       headers: {
         Authorization: `Barear ${token}`,
       },
       data: "",
     };
-    axios(config)
+    myApi(config)
       .then(({ data }) => {
         logOut(true);
         localStorage.removeItem("token");

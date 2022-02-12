@@ -11,8 +11,8 @@ import {
   LogOutContext,
   PostsContext,
 } from "./context/context";
-import axios from "axios";
 import "./style/app.style.scss";
+import myApi from "./api/myApi";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -22,10 +22,10 @@ function App() {
   const getData = () => {
     let config = {
       method: "get",
-      url: "http://localhost:8080/posts",
+      url: "/posts",
       data: "",
     };
-    axios(config)
+    myApi(config)
       .then(({ data }) => {
         setPostsData(data);
       })

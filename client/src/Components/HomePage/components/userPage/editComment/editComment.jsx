@@ -1,7 +1,7 @@
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import { useState } from "react";
-import axios from "axios";
+import myApi from "../../../../../App/api/myApi";
 
 export const CommentUpdate = ({ getData, setIsUpdateComment, postId, tempId ,content}) => {
   const [valueToSend, setValueToSend] = useState(content);
@@ -9,7 +9,7 @@ export const CommentUpdate = ({ getData, setIsUpdateComment, postId, tempId ,con
   const handleClick = () => {
     let config = {
       method: "put",
-      url: `http://localhost:8080/user/post/comment/update/${postId}`,
+      url: `/user/post/comment/update/${postId}`,
       headers: {
         Authorization: `Barear ${token}`,
       },
@@ -18,7 +18,7 @@ export const CommentUpdate = ({ getData, setIsUpdateComment, postId, tempId ,con
         content: valueToSend,
       },
     };
-    axios(config)
+    myApi(config)
       .then(() => {
         setIsUpdateComment(false)
         getData();

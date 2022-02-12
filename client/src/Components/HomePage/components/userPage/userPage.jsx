@@ -4,7 +4,7 @@ import { useParams } from "react-router";
 import RecipeReviewCard from "./card";
 import "./style/userPage.style.scss";
 import "./style/mobileUserPage.style.scss";
-import axios from "axios";
+import myApi from "../../../../App/api/myApi";
 import { PostsContext } from "../../../../App/context/context";
 import { CommentUpdate } from "./editComment/editComment";
 
@@ -19,13 +19,13 @@ export const UserProfile = ({ getData }) => {
   const deleteComment = (id, postId) => {
     let config = {
       method: "put",
-      url: `http://localhost:8080/user/post/comment/${postId}`,
+      url: `/user/post/comment/${postId}`,
       headers: {
         Authorization: `Barear ${token}`,
       },
       data: { commentId: id },
     };
-    axios(config)
+    myApi(config)
       .then(() => {
         getData();
       })

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "../Login/styles/login.style.scss";
 import { NavBar } from "../navBar/navBar";
-import axios from "axios";
+import myApi from "../../App/api/myApi";
 import { Link, useNavigate } from "react-router-dom";
 import { TextField } from "@mui/material";
 import Button from "@mui/material/Button";
@@ -35,10 +35,10 @@ export const RegisterPage = ({ setIsLoggedIn }) => {
     e.preventDefault();
     let config = {
       method: "post",
-      url: "http://localhost:8080/user/add",
+      url: "/user/add",
       data: register,
     };
-    axios(config)
+    myApi(config)
       .then(({ data }) => {
         setLogged(true);
         setIsLoggedIn(true);
