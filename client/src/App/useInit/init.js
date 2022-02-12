@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
+import myApi from "../api/myApi";
 
 export const useUserAuth = () => {
   const [token] = useState(() => localStorage.getItem("token"));
@@ -10,6 +10,7 @@ export const useUserAuth = () => {
       let data = "";
       let config = {
         method: "post",
+        url: "/user/login",
         headers: {
           Authorization: `Barear ${token}`,
         },
@@ -17,7 +18,7 @@ export const useUserAuth = () => {
       };
 
       function getUserByToken() {
-        axios("http://localhost:8080/user/login", config)
+        myApi(config)
           .then(({ data }) => {
             data[0] === "Logged In" && setIsLoggedIn(true);
           })
