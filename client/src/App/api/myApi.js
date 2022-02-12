@@ -8,8 +8,6 @@ if (process.env.NODE_ENV === "production") {
   myUrl = "/";
 }
 
-console.log(process.env.NODE_ENV);
-
 const myApi = axios.create({
   baseURL: myUrl,
 });
