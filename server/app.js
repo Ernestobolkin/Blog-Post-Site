@@ -62,7 +62,8 @@ app.put("/user/post/update/:postId", auth, updatePost);
 app.put("/user/post/comment/update/:postId", auth, updateComment);
 
 app.get("*", (req, res) => {
-  res.send(path.resolve(publicPath, "index.html"));
+  console.log(publicPath);
+  res.sendFile(path.resolve(publicPath, "index.html"));
 });
 
 app.listen(port, () => {
