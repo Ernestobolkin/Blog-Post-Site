@@ -61,7 +61,7 @@ app.put("/user/post/update/:postId", auth, updatePost);
 
 app.put("/user/post/comment/update/:postId", auth, updateComment);
 
-app.use("*", (req, res) => {
+app.get("*", (req, res) => {
   res.send(path.resolve(publicPath, "index.html"));
 });
 
