@@ -27,3 +27,5 @@ To start the app:
 * Chat with other users.
 * Socket Io
 * Different style
+
+![Screenshot](screenshot.png?raw=true "Title")
