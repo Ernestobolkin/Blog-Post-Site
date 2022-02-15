@@ -28,4 +28,4 @@ To start the app:
 * Socket Io
 * Different style
 
-![Screenshot](screenshot.png)
+![Screenshot](screenshot.png=250x250)
