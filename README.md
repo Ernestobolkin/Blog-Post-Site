@@ -28,5 +28,5 @@ To start the app:
 * Socket Io
 * Different style
 
-<img src="screenshot.png" width="100" height="100">
+<img src="screenshot.png" width="100%" height="100%">
 
