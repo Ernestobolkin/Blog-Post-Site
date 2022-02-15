@@ -10,6 +10,10 @@ and a comment section to the posts (of course with full crud options).
 * Express
 * React
 * NodeJs
+* Jwt
+* Password hash
+* MUI styling
+
 
 ## Setup ##
 To start the app: 
