@@ -6,18 +6,25 @@ import { RegisterPage } from "../Components/Signup/Signup";
 import { UserProfile } from "../Components/HomePage/components/userPage/userPage";
 import { useEffect, useState } from "react";
 import { useUserAuth } from "./useInit/init";
-import "./style/normalize.css"
+import "./style/normalize.css";
 import {
   LogOutContext,
   PostsContext,
+  UserDataContext,
 } from "./context/context";
 import "./style/app.style.scss";
 import myApi from "./api/myApi";
+import { NavBar } from "../Components/navBar/navBar";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [postsData, setPostsData] = useState([]);
-  const loggedIn = useUserAuth();
+  const [userData, setUserData] = useState({
+    name: "",
+    email: "",
+  });
+  const loggedIn = useUserAuth()[0];
+  const userDataAuth = useUserAuth()[1];
 
   const getData = () => {
     let config = {
@@ -38,9 +45,15 @@ function App() {
   useEffect(() => {
     getData();
     if (loggedIn) {
+      
       setIsLoggedIn(true);
     }
   }, [loggedIn]); // eslint-disable-line
+
+  useEffect(()=>{
+    console.log(userDataAuth);
+    console.log(userData);
+  })
 
   const logOut = () => setIsLoggedIn(false);
 
@@ -48,12 +61,18 @@ function App() {
     <>
       <LogOutContext.Provider value={{ logOut, isLoggedIn }}>
         <PostsContext.Provider value={{ postsData }}>
-        
+          <UserDataContext.Provider value={{ userData }}>
+            <NavBar setUserData={setUserData} />
             <Routes>
-              <Route path="/post/*" element={<UserProfile getData={getData} postsData={postsData} />}/>
+              <Route
+                path="/post/*"
+                element={
+                  <UserProfile getData={getData} postsData={postsData} />
+                }
+              />
               <Route
                 path={ROUTES.LOGIN}
-                element={<LoginPage setIsLoggedIn={setIsLoggedIn} />}
+                element={<LoginPage setUserData={setUserData} setIsLoggedIn={setIsLoggedIn} />}
               />
               <Route
                 path={ROUTES.REGISTER}
@@ -61,6 +80,7 @@ function App() {
               />
               <Route path={"/*"} element={<HomePage getData={getData} />} />
             </Routes>
+          </UserDataContext.Provider>
         </PostsContext.Provider>
       </LogOutContext.Provider>
     </>

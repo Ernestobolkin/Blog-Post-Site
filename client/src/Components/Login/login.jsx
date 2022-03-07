@@ -1,16 +1,14 @@
 import { Form } from "./form";
 import { Link } from "react-router-dom";
 import ROUTES from "../../constants/routes";
-import { NavBar } from "../navBar/navBar";
 import "./styles/login.style.scss";
 
-export const LoginPage = ({ setIsLoggedIn, setUserName }) => {
+export const LoginPage = ({ setIsLoggedIn, setUserData }) => {
   return (
     <>
-      <NavBar />
       <div className="login-page">
         <div className="login-container">
-          <Form setIsLoggedIn={setIsLoggedIn} setUserName={setUserName} />
+          <Form setIsLoggedIn={setIsLoggedIn} setUserData={setUserData} />
           <p>Don't have an account? </p>
           <Link className="link" to={ROUTES.REGISTER}>
             Sign Up

@@ -1,17 +1,16 @@
-import { NavBar } from "../../../navBar/navBar";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router";
 import RecipeReviewCard from "./card";
 import "./style/userPage.style.scss";
 import "./style/mobileUserPage.style.scss";
 import myApi from "../../../../App/api/myApi";
-import { PostsContext } from "../../../../App/context/context";
+import { PostsContext, UserDataContext } from "../../../../App/context/context";
 import { CommentUpdate } from "./editComment/editComment";
 
 export const UserProfile = ({ getData }) => {
   const { postsData } = useContext(PostsContext);
   let token = localStorage.getItem("token");
-  let userEmail = localStorage.getItem("email");
+  const { userData } = useContext(UserDataContext);
   const userNameParam = Object.values(useParams()).toString();
   const [isupdateComment, setIsUpdateComment] = useState(false);
   const [tempId, setTempId] = useState("");
@@ -31,21 +30,22 @@ export const UserProfile = ({ getData }) => {
       })
       .catch((error) => {
         console.dir(error);
-        console.log("Error");
       });
   };
-
+  useEffect(() => {
+    console.log(userData);
+  });
   const handleClick = ({ target: { id } }, _id, postId) => {
     id === "delete-icon" && deleteComment(_id, postId);
     id === "edit-icon" && handleClickEditIcon(_id);
   };
 
   const handleClickEditIcon = (_id) => {
-    setTempId(_id)
-    setIsUpdateComment(true)
+    setTempId(_id);
+    setIsUpdateComment(true);
   };
 
-  const renderComments = (comment, postId, postOwner) => {
+  const renderComments = (comment, postId) => {
     const { _id, date, userName, content, email } = comment;
 
     let name = userName.charAt(0).toUpperCase() + userName.slice(1);
@@ -63,7 +63,7 @@ export const UserProfile = ({ getData }) => {
           </div>
         )}
         <div className="crud-comment-options">
-          {userEmail === email  && (
+          {userData.email === email && (
             <i
               name="delete"
               onClick={(e) => handleClick(e, _id, postId)}
@@ -71,7 +71,7 @@ export const UserProfile = ({ getData }) => {
               className="fas fa-trash"
             />
           )}
-          {userEmail === email && (
+          {userData.email === email && (
             <i
               name="edit"
               onClick={(e) => handleClick(e, _id, postId)}
@@ -92,7 +92,6 @@ export const UserProfile = ({ getData }) => {
 
   return (
     <>
-      <NavBar />
       <div className="user-posts-container">
         <h2 className="userName">
           {userNameParam.charAt(0).toUpperCase() + userNameParam.slice(1)}

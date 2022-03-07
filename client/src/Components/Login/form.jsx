@@ -1,13 +1,15 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import myApi from "../../App/api/myApi";
 import { useNavigate } from "react-router-dom";
 import { TextField } from "@mui/material";
 import Button from "@mui/material/Button";
 import ROUTES from "../../constants/routes";
 import { ErrorMsg } from "../ErrorSnackBar/error";
+import { UserDataContext } from "../../App/context/context";
 
-export const Form = ({ setIsLoggedIn }) => {
+export const Form = ({ setIsLoggedIn, setUserData }) => {
   const navigate = useNavigate();
+  const { userData } = useContext(UserDataContext);
   const [login, setLogin] = useState({
     email: "",
     password: "",
@@ -40,8 +42,7 @@ export const Form = ({ setIsLoggedIn }) => {
         setIsLoggedIn(true);
         let name = data[1].name.charAt(0).toUpperCase() + data[1].name.slice(1);
         window.localStorage.setItem("token", data[2]);
-        window.localStorage.setItem("userName", name);
-        window.localStorage.setItem("email", data[1].email);
+        setUserData({ ...userData, email: data[1].email, name });
         setMsg({ ...msg, logged: `Welcome Back ${name}` });
         setTimeout(() => {
           navigate(ROUTES.TRAILING_PATH);
@@ -57,12 +58,9 @@ export const Form = ({ setIsLoggedIn }) => {
   return (
     <>
       {logged && (
-        <ErrorMsg string={msg.logged} setMsg={setLogged}  type={"success"} />
+        <ErrorMsg string={msg.logged} setMsg={setLogged} type={"success"} />
       )}
-      {error && (
-        <ErrorMsg string={msg.err} setMsg={setError} type={"error"}/>
-      )}
-      {/* <ErrorMsg string="hello darkness my old friend"/> */}
+      {error && <ErrorMsg string={msg.err} setMsg={setError} type={"error"} />}
       <form className="form-container">
         <h2 style={{ margin: "0px auto 2rem auto" }}>Login</h2>
         <TextField

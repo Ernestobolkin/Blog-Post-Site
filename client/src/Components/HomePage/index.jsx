@@ -14,7 +14,6 @@ export const HomePage = ({ getData }) => {
   const { isLoggedIn } = useContext(LogOutContext);
   return (
     <>
-      <NavBar />
       <div className={classList.homePage}>
         <div className={classList.uploadContainer}>
           {isLoggedIn && <UploadPost getData={getData} />}

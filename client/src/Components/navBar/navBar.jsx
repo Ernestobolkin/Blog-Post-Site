@@ -3,7 +3,7 @@ import "./mobileNav.style.scss";
 import { Link } from "react-router-dom";
 import ROUTES from "../../constants/routes";
 import { useEffect, useContext, useState } from "react";
-import { LogOutContext } from "../../App/context/context";
+import { LogOutContext, UserDataContext } from "../../App/context/context";
 import myApi from "../../App/api/myApi";
 import BackgroundLetterAvatars from "./avatar";
 
@@ -13,7 +13,8 @@ const classes = {
   flout: { right: "right", left: "left" },
 };
 
-export const NavBar = () => {
+export const NavBar = ({ setUserData }) => {
+  const { userData } = useContext(UserDataContext);
   const [token, setToken] = useState("");
   const { logOut, isLoggedIn } = useContext(LogOutContext);
 
@@ -32,18 +33,16 @@ export const NavBar = () => {
       data: "",
     };
     myApi(config)
-      .then(({ data }) => {
-        localStorage.removeItem("token");
-        localStorage.removeItem("userName");
-        localStorage.removeItem("email");
+      .then(() => {
+        setUserData({ ...userData, email: "", name: "" });
         logOut(true);
+        localStorage.removeItem("token");
       })
       .catch((error) => {
-        localStorage.removeItem("token");
-        localStorage.removeItem("userName");
-        localStorage.removeItem("email");
+        setUserData({ ...userData, email: "", name: "" });
         logOut(true);
-        console.log(error.response.data);
+        console.dir(error);
+        localStorage.removeItem("token");
       });
   };
 

@@ -62,7 +62,6 @@ export const RegisterPage = ({ setIsLoggedIn }) => {
 
   return (
     <>
-      <NavBar />
       {logged && (
         <ErrorMsg string={msg.logged} setMsg={setLogged} type={"success"} />
       )}

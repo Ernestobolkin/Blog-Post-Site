@@ -26,7 +26,7 @@ export const AddComment = ({ getData, id }) => {
       },
     };
     myApi(config)
-      .then(({ data }) => {
+      .then(() => {
         getData();
         setCommentValue("")
       })

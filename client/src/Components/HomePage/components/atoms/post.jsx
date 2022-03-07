@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import "./style/post.style.scss";
 import { Link } from "react-router-dom";
 import Card from "@mui/material/Card";
@@ -9,6 +9,7 @@ import "./style/post.style.scss";
 import "./style/mobilePost.style.scss";
 import myApi from "../../../../App/api/myApi";
 import { PostUpdate } from "./postCrud/postCrud";
+import { UserDataContext } from "../../../../App/context/context";
 
 export const Post = ({
   getData,
@@ -16,8 +17,7 @@ export const Post = ({
 }) => {
   const [isUpdatePost, setIsUpdatePost] = useState(false);
   let token = window.localStorage.getItem("token");
-  let userEmail = window.localStorage.getItem("email");
-
+  const { userData } = useContext(UserDataContext);
   let name = userName.charAt(0).toUpperCase() + userName.slice(1);
   const deletePost = () => {
     let config = {
@@ -43,10 +43,8 @@ export const Post = ({
 
   const renderPostCard = () => {
     return (
-      <Card
-        className="card"
-      >
-        {email === userEmail && (
+      <Card className="card">
+        {email === userData.email && (
           <div className="crud-post-options">
             <i
               name="delete"
