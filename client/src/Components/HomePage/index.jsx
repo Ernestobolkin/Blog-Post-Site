@@ -1,4 +1,3 @@
-import { NavBar } from "../navBar/navBar";
 import { Content } from "./components/content";
 import "./styles/homePage.style.scss";
 import { UploadPost } from "./components/uploadPost";

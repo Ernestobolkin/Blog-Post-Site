@@ -1,6 +1,5 @@
 import { useState } from "react";
 import "../Login/styles/login.style.scss";
-import { NavBar } from "../navBar/navBar";
 import myApi from "../../App/api/myApi";
 import { Link, useNavigate } from "react-router-dom";
 import { TextField } from "@mui/material";
