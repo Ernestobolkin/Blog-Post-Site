@@ -23,8 +23,7 @@ function App() {
     name: "",
     email: "",
   });
-  const loggedIn = useUserAuth()[0];
-  const userDataAuth = useUserAuth()[1];
+  const authMW = useUserAuth();
 
   const getData = () => {
     let config = {
@@ -44,16 +43,15 @@ function App() {
 
   useEffect(() => {
     getData();
-    if (loggedIn) {
-      
+    if (authMW[0]) {
+      setUserData({
+        ...userData,
+        email: authMW[1].email,
+        name: authMW[1].name,
+      });
       setIsLoggedIn(true);
     }
-  }, [loggedIn]); // eslint-disable-line
-
-  useEffect(()=>{
-    console.log(userDataAuth);
-    console.log(userData);
-  })
+  }, [authMW[0]]); // eslint-disable-line
 
   const logOut = () => setIsLoggedIn(false);
 
@@ -72,7 +70,12 @@ function App() {
               />
               <Route
                 path={ROUTES.LOGIN}
-                element={<LoginPage setUserData={setUserData} setIsLoggedIn={setIsLoggedIn} />}
+                element={
+                  <LoginPage
+                    setUserData={setUserData}
+                    setIsLoggedIn={setIsLoggedIn}
+                  />
+                }
               />
               <Route
                 path={ROUTES.REGISTER}

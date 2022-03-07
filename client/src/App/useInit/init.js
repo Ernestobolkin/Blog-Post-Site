@@ -4,7 +4,7 @@ import myApi from "../api/myApi";
 export const useUserAuth = () => {
   const [token] = useState(() => localStorage.getItem("token"));
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [userDataAuth, setUserDataAuth] = useState(null);
+  const [userDataAuth, setUserDataAuth] = useState("");
 
   useEffect(() => {
     try {
@@ -20,9 +20,8 @@ export const useUserAuth = () => {
       function getUserByToken() {
         myApi(config)
           .then(({ data }) => {
+            data[0] === "Logged In" && setUserDataAuth(data[1]);;
             data[0] === "Logged In" && setIsLoggedIn(true);
-            data[0] === "Logged In" && setUserDataAuth(data[1]);
-            console.log("from here");
           })
           .catch((error) => {
             console.log(error.response.data);
