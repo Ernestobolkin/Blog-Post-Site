@@ -64,7 +64,7 @@ function App() {
             <Routes>
 
               <Route
-                path="/post/*"
+                path={ROUTES.USER_POST_PAGE}
                 element={
                   <UserProfile getData={getData} postsData={postsData} />
                 }
