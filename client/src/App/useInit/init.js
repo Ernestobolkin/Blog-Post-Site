@@ -1,10 +1,13 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import ROUTES from "../../constants/routes";
 import myApi from "../api/myApi";
 
 export const useUserAuth = () => {
   const [token] = useState(() => localStorage.getItem("token"));
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userDataAuth, setUserDataAuth] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
     try {
@@ -27,6 +30,9 @@ export const useUserAuth = () => {
             console.log(error.response.data);
             if (error.response.data.includes("expired")) {
               localStorage.removeItem("token");
+              setIsLoggedIn(false)
+              window.location.reload(false);
+              navigate(ROUTES.TRAILING_PATH);
             }
           });
       }

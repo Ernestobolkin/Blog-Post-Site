@@ -62,7 +62,6 @@ function App() {
           <UserDataContext.Provider value={{ userData }}>
             <NavBar setUserData={setUserData} />
             <Routes>
-
               <Route
                 path={ROUTES.USER_POST_PAGE}
                 element={
@@ -82,7 +81,10 @@ function App() {
                 path={ROUTES.REGISTER}
                 element={<RegisterPage setIsLoggedIn={setIsLoggedIn} />}
               />
-              <Route path={ROUTES.TRAILING_PATH} element={<HomePage getData={getData} />} />
+              <Route
+                path={ROUTES.TRAILING_PATH}
+                element={<HomePage getData={getData} />}
+              />
             </Routes>
           </UserDataContext.Provider>
         </PostsContext.Provider>
