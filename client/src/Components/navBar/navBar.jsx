@@ -50,9 +50,8 @@ export const NavBar = ({ setUserData }) => {
       <div className={classes.flout.left}>
         <Link className="items mobile-item" to={`${ROUTES.TRAILING_PATH}`}>
           <span className="logo">
-            <span className="post">
-              Post<span className="me">Me</span>
-            </span>
+            <span className="post">Post</span>
+            <span className="me">Me</span>
           </span>
         </Link>
       </div>

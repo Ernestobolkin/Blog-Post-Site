@@ -28,7 +28,7 @@ $red_color: #ea4f4c;
     align-items: center;
     transition: all 0.3s ease-in-out;
   }
-  .logout-mobile{
+  .logout-mobile {
     display: none;
   }
   .item:hover {
@@ -41,16 +41,23 @@ $red_color: #ea4f4c;
   .left {
     margin-left: 10px;
   }
-  .logo
-    .me {
-      transition: all 0.3s ease-in-out;
-      color: $red_color;
-    }
+  .logo {
+    display: flex;
+    flex-direction: row;
+  }
+  .logo .post,
+  .me {
+    display: block;
+    margin-left: 1px;
+  }
+  .me{
+    color: $red_color;
+    transition: all 0.3s ease-in-out;
+  }
   
-
-  .logo:hover
-    .me{
+  .logo:hover {
+    .me {
       color: $black_color;
-    
+    }
   }
 }
