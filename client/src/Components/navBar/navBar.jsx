@@ -21,16 +21,15 @@ export const NavBar = ({ setUserData }) => {
   useEffect(() => {
     let localToken = localStorage.getItem("token");
     setToken(localToken);
-  }, [token]);
+  }, [isLoggedIn]);
 
   const onClickLogout = () => {
     let config = {
       method: "post",
       url: "/user/logout",
       headers: {
-        Authorization: `Barear ${token}`,
+        Authorization: `Bearear ${token}`,
       },
-      data: "",
     };
     myApi(config)
       .then(() => {
