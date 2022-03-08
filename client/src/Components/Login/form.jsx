@@ -61,7 +61,7 @@ export const Form = ({ setIsLoggedIn, setUserData }) => {
         <ErrorMsg string={msg.logged} setMsg={setLogged} type={"success"} />
       )}
       {error && <ErrorMsg string={msg.err} setMsg={setError} type={"error"} />}
-      <form className="form-container">
+      <form className="form-container" onSubmit={handleClick}>
         <h2 style={{ margin: "0px auto 2rem auto" }}>Login</h2>
         <TextField
           style={{
@@ -99,6 +99,7 @@ export const Form = ({ setIsLoggedIn, setUserData }) => {
           size="medium"
           variant="contained"
           onClick={handleClick}
+          type="submit"
         >
           Login
         </Button>

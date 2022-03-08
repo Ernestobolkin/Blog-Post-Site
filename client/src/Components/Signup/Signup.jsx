@@ -69,7 +69,7 @@ export const RegisterPage = ({ setIsLoggedIn }) => {
       <div className="register-page">
         <div className="register-container">
           <h2 style={{ margin: "0px auto 2rem auto" }}>Sign up</h2>
-          <form className="form-container">
+          <form className="form-container" onSubmit={handleClick}>
             <br />
             <TextField
               style={{
@@ -130,7 +130,7 @@ export const RegisterPage = ({ setIsLoggedIn }) => {
               </Link>
             </div>
             <br />
-            <Button onClick={handleClick} variant="contained">
+            <Button onClick={handleClick} type="submit" variant="contained">
               Register
             </Button>
           </form>
