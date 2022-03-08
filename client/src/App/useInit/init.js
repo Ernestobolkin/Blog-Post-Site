@@ -31,8 +31,8 @@ export const useUserAuth = () => {
             if (error.response.data.includes("expired")) {
               localStorage.removeItem("token");
               setIsLoggedIn(false)
-              window.location.reload(false);
               navigate(ROUTES.TRAILING_PATH);
+              window.location.reload(false);
             }
           });
       }
