@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import { useParams } from "react-router";
 import RecipeReviewCard from "./card";
 import "./style/userPage.style.scss";
@@ -14,6 +14,7 @@ export const UserProfile = ({ getData }) => {
   const userNameParam = Object.values(useParams()).toString();
   const [isupdateComment, setIsUpdateComment] = useState(false);
   const [tempId, setTempId] = useState("");
+  const [tempContent, setTempContent] = useState("");
 
   const deleteComment = (id, postId) => {
     let config = {
@@ -32,16 +33,14 @@ export const UserProfile = ({ getData }) => {
         console.dir(error);
       });
   };
-  useEffect(() => {
-    console.log(userData);
-  });
-  const handleClick = ({ target: { id } }, _id, postId) => {
+  const handleClick = ({ target: { id } }, _id, postId, content) => {
     id === "delete-icon" && deleteComment(_id, postId);
-    id === "edit-icon" && handleClickEditIcon(_id);
+    id === "edit-icon" && handleClickEditIcon(_id, content);
   };
 
-  const handleClickEditIcon = (_id) => {
+  const handleClickEditIcon = (_id, content) => {
     setTempId(_id);
+    setTempContent(content);
     setIsUpdateComment(true);
   };
 
@@ -58,7 +57,7 @@ export const UserProfile = ({ getData }) => {
               setIsUpdateComment={setIsUpdateComment}
               postId={postId}
               tempId={tempId}
-              content={content}
+              content={tempContent}
             />
           </div>
         )}
@@ -74,7 +73,7 @@ export const UserProfile = ({ getData }) => {
           {userData.email === email && (
             <i
               name="edit"
-              onClick={(e) => handleClick(e, _id, postId)}
+              onClick={(e) => handleClick(e, _id, postId, content)}
               id="edit-icon"
               className="fas fa-pencil-alt"
             />
