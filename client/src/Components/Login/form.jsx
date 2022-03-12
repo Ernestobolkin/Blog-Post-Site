@@ -71,7 +71,6 @@ export const Form = ({ setIsLoggedIn, setUserData }) => {
           }}
           required
           value={login.email}
-          // className="input"
           placeholder="Enter Your Email"
           type="email"
           id="outlined-required"

@@ -79,7 +79,7 @@ function App() {
               />
               <Route
                 path={ROUTES.REGISTER}
-                element={<RegisterPage setIsLoggedIn={setIsLoggedIn} />}
+                element={<RegisterPage setUserData={setUserData} setIsLoggedIn={setIsLoggedIn} />}
               />
               <Route
                 path={ROUTES.TRAILING_PATH}
