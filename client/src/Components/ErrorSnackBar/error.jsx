@@ -7,7 +7,6 @@ const Alert = forwardRef(function Alert(props, ref) {
 });
 
 export const ErrorMsg = ({ string, setMsg, type ,time }) => {
-  console.log(time);
   const renderString = () => {
     setTimeout(() => {
       setMsg(false);
