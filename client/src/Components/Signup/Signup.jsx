@@ -19,10 +19,12 @@ export const RegisterPage = ({ setIsLoggedIn, setUserData }) => {
 
   const [error, setError] = useState(false);
   const [logged, setLogged] = useState(false);
+  const [isSendData, setIsSendData] = useState(false);
 
   const [msg, setMsg] = useState({
     logged: "",
     err: "",
+    time: null,
   });
 
   const handleChange = ({ target }) => {
@@ -34,30 +36,47 @@ export const RegisterPage = ({ setIsLoggedIn, setUserData }) => {
 
   const handleClick = (e) => {
     e.preventDefault();
+    setIsSendData(false);
+    if (register.password.length <= 8) {
+      setError(true);
+      setMsg({
+        ...msg,
+        err: "The password must be more than 8 characters",
+        time: 3000,
+      });
+    } else {
+      setIsSendData(true);
+    }
     let config = {
       method: "post",
       url: "/user/add",
       data: register,
     };
-    myApi(config)
-      .then(({ data }) => {
-        setLogged(true);
-        setIsLoggedIn(true);
-        let name =
-          data.user.name.charAt(0).toUpperCase() + data.user.name.slice(1);
-        window.localStorage.setItem("token", data.token);
-        setUserData({ ...userData, email: data.user.email, name });
-        setMsg({ ...msg, logged: `Welcome ${name}` });
-        setTimeout(() => {
-          navigate(ROUTES.TRAILING_PATH);
-        }, 1000);
-      })
-      .catch((error) => {
-        setError(true);
-        setMsg({ ...msg, err: "Somthing went Wrong, Please check the fields" });
-        console.dir(error);
-        console.log("Error");
-      });
+
+    isSendData &&
+      myApi(config)
+        .then(({ data }) => {
+          setLogged(true);
+          setIsLoggedIn(true);
+          let name =
+            data.user.name.charAt(0).toUpperCase() + data.user.name.slice(1);
+          window.localStorage.setItem("token", data.token);
+          setUserData({ ...userData, email: data.user.email, name });
+          setMsg({ ...msg, logged: `Welcome ${name}` });
+          setTimeout(() => {
+            navigate(ROUTES.TRAILING_PATH);
+          }, 1000);
+        })
+        .catch((error) => {
+          setError(true);
+          setMsg({
+            ...msg,
+            err: "Somthing went Wrong, Please check the fields, might be the email",
+            time: 3000,
+          });
+          console.dir(error);
+          console.log("Error");
+        });
   };
 
   return (
@@ -65,7 +84,14 @@ export const RegisterPage = ({ setIsLoggedIn, setUserData }) => {
       {logged && (
         <ErrorMsg string={msg.logged} setMsg={setLogged} type={"success"} />
       )}
-      {error && <ErrorMsg string={msg.err} setMsg={setError} type={"error"} />}
+      {error && (
+        <ErrorMsg
+          string={msg.err}
+          setMsg={setError}
+          type={"error"}
+          time={msg.time}
+        />
+      )}
       <form onSubmit={handleChange}>
         <div className="register-page">
           <div className="register-container">
@@ -79,7 +105,7 @@ export const RegisterPage = ({ setIsLoggedIn, setUserData }) => {
                   borderRadius: "5px",
                 }}
                 className="outlined-required"
-                label="Username"
+                label="Full Name"
                 size="small"
                 onChange={handleChange}
                 value={register.name}

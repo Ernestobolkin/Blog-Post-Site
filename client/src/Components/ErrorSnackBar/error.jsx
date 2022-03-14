@@ -6,11 +6,12 @@ const Alert = forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
 
-export const ErrorMsg = ({ string, setMsg, type }) => {
+export const ErrorMsg = ({ string, setMsg, type ,time }) => {
+  console.log(time);
   const renderString = () => {
     setTimeout(() => {
       setMsg(false);
-    }, 2000);
+    }, time || 2000 );
     return (
       <>
         <div className="container">
